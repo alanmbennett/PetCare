@@ -2,6 +2,9 @@ package com.alanmbennett.petcare;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.JsonReader;
+import android.util.JsonWriter;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
