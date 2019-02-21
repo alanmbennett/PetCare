@@ -11,31 +11,23 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/prompt_email"
-        android:inputType="textEmailAddress"/>
+        android:hint="@string/prompt_pet_name" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/prompt_confirm_email"
-        android:inputType="textEmailAddress"/>
+        android:hint="@string/prompt_birthdate"
+        android:inputType="date"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/prompt_password"
-        android:inputType="textPassword"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/prompt_confirm_password"
-        android:inputType="textPassword"/>
+        android:hint="@string/prompt_pet_weight"
+        android:inputType="numberDecimal"/>
 
     <Button
-        android:id="@+id/signup_act_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/signup_text" />
+        android:text="@string/add_pet_text" />
 
 </LinearLayout>

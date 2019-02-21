@@ -10,4 +10,11 @@
     <string name="prompt_password">Password</string>
     <string name="prompt_confirm_password">Confirm Password</string>
     <string name="action_sign_in">Sign in</string>
+
+    <!-- Strings related to adding a pet -->
+    <string name="prompt_pet_name">Pet\'s name</string>
+    <string name="prompt_birthdate">Pet\'s birthdate</string>
+    <string name="prompt_pet_weight">Pet\'s weight</string>
+    <string name="add_pet_text">Add Pet</string>
+
 </resources>
