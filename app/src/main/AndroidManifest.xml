@@ -13,7 +13,49 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddPetActivity"></activity>
+        <activity
+            android:name=".Reminder_Edit"
+            android:label="@string/title_activity_reminder__edit"
+            android:parentActivityName=".Reminder"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.Reminder" />
+        </activity>
+        <activity
+            android:name=".Reminder"
+            android:label="@string/title_activity_reminder"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Edit_Pet"
+            android:label="@string/title_activity_edit__pet"
+            android:parentActivityName=".Pet_Profile"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.Pet_Profile" />
+        </activity>
+        <activity
+            android:name=".Edit_User"
+            android:label="@string/title_activity_edit__user"
+            android:parentActivityName=".User_Profile"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.User_Profile" />
+        </activity>
+        <activity
+            android:name=".Pet_Profile"
+            android:label="@string/title_activity_pet__profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".User_Profile"
+            android:label="@string/title_activity_user__profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Dashboard"
+            android:label="@string/title_activity_dashboard" />
+        <activity android:name=".AddPetActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SplashActivity">

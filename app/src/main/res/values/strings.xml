@@ -16,5 +16,19 @@
     <string name="prompt_birthdate">Pet\'s birthdate</string>
     <string name="prompt_pet_weight">Pet\'s weight</string>
     <string name="add_pet_text">Add Pet</string>
+    <string name="title_activity_dashboard">Dashboard</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_user__profile">User_Profile</string>
+    <string name="title_activity_pet__profile">Pet_Profile</string>
+    <string name="title_activity_edit__user">Edit_User</string>
+    <string name="title_activity_edit__pet">Edit_Pet</string>
+    <string name="title_activity_reminder">Reminder</string>
+    <string name="title_activity_reminder__edit">Reminder_Edit</string>
+
+    <!-- Strings related to user profile -->
+    <string name="user_prof_image">User Profile Image</string>
+
 
 </resources>
