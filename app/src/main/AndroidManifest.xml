@@ -14,46 +14,46 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Reminder_Edit"
+            android:name=".EditReminderActivity"
             android:label="@string/title_activity_reminder__edit"
-            android:parentActivityName=".Reminder"
+            android:parentActivityName=".ReminderActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.alanmbennett.petcare.Reminder" />
+                android:value="com.alanmbennett.petcare.ReminderActivity" />
         </activity>
         <activity
-            android:name=".Reminder"
+            android:name=".ReminderActivity"
             android:label="@string/title_activity_reminder"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Edit_Pet"
+            android:name=".EditPetActivity"
             android:label="@string/title_activity_edit__pet"
-            android:parentActivityName=".Pet_Profile"
+            android:parentActivityName=".PetProfileActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.alanmbennett.petcare.Pet_Profile" />
+                android:value="com.alanmbennett.petcare.PetProfileActivity" />
         </activity>
         <activity
-            android:name=".Edit_User"
+            android:name=".EditUserActivity"
             android:label="@string/title_activity_edit__user"
-            android:parentActivityName=".User_Profile"
+            android:parentActivityName=".UserProfileActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.alanmbennett.petcare.User_Profile" />
+                android:value="com.alanmbennett.petcare.UserProfileActivity" />
         </activity>
         <activity
-            android:name=".Pet_Profile"
+            android:name=".PetProfileActivity"
             android:label="@string/title_activity_pet__profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".User_Profile"
+            android:name=".UserProfileActivity"
             android:label="@string/title_activity_user__profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Dashboard"
+            android:name=".DashboardActivity"
             android:label="@string/title_activity_dashboard" />
         <activity android:name=".AddPetActivity" />
         <activity android:name=".SignupActivity" />
