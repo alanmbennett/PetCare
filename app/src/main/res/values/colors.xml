@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#acd8ef</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#94c8dd</color>
+    <color name="buttonPressed">#7199aa</color>
+    <color name="buttonDefault">@color/colorAccent</color>
+    <color name="buttonGrayedOut">#9abdb8</color>
+    <color name="navigationColor">@color/colorPrimary</color>
 </resources>

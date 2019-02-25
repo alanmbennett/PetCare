@@ -17,4 +17,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- Button styling -->
+    <style name="ButtonTheme">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">@drawable/background_button</item>
+        <item name="android:layout_margin">15dp</item>
+    </style>
+
 </resources>
