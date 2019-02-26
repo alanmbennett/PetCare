@@ -44,11 +44,19 @@
         android:hint="@string/prompt_confirm_password"
         android:inputType="textPassword"/>
 
+    <TextView
+        android:id="@+id/error_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/errorColor"
+        android:visibility="gone"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/signup_act_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signup_text"
         style="@style/ButtonTheme"/>
+
 
 </LinearLayout>

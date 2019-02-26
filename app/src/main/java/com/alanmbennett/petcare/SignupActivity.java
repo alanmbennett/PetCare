@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -17,11 +18,15 @@ public class SignupActivity extends AppCompatActivity {
     EditText confirmEmail;
     EditText password;
     EditText confirmPassword;
+    String errorStr;
+    TextView errorMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        errorStr = "";
+        errorMsg = (TextView) this.findViewById(R.id.error_textView);
 
         signup = (Button) this.findViewById(R.id.signup_act_button);
         signup.setEnabled(false);
@@ -45,9 +50,16 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(validInput())
+                {
+                    errorMsg.setVisibility(View.GONE);
                     signup.setEnabled(true);
+                }
                 else
+                {
+                    errorMsg.setText(errorStr);
                     signup.setEnabled(false);
+                    errorMsg.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -75,21 +87,32 @@ public class SignupActivity extends AppCompatActivity {
 
     public boolean validInput()
     {
+        boolean valid = true;
         String emailStr = email.getText().toString();
         String confirmEmailStr = confirmEmail.getText().toString();
         String passwordStr = password.getText().toString();
         String confirmPasswordStr = confirmPassword.getText().toString();
+        errorStr = "One or more errors need to be corrected:\n\n";
+
+        if(emailStr.length() == 0 || confirmEmailStr.length() == 0 || passwordStr.length() == 0
+                || confirmPasswordStr.length() == 0)
+        {
+            errorStr += "- One or more fields are left blank.\n\n";
+            valid = false;
+        }
 
         if(!emailStr.equals(confirmEmailStr) || emailStr.isEmpty() || confirmEmailStr.isEmpty())
         {
-            return false;
+            errorStr += "- Please make sure the emails match in the above fields.\n\n";
+            valid = false;
         }
 
         if(!passwordStr.equals(confirmPasswordStr) || passwordStr.isEmpty() || confirmPasswordStr.isEmpty())
         {
-            return false;
+            errorStr += "- Please make sure the passwords match in the above fields.\n";
+            valid = false;
         }
 
-        return true;
+        return valid;
     }
 }
