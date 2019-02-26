@@ -96,6 +96,7 @@ public class SignupActivity extends AppCompatActivity {
         String passwordStr = password.getText().toString();
         String confirmPasswordStr = confirmPassword.getText().toString();
         errorStr = "One or more errors need to be corrected:\n\n";
+
         String emailPattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
         Pattern emailRegex = Pattern.compile(emailPattern);
         Matcher m = emailRegex.matcher(emailStr);
