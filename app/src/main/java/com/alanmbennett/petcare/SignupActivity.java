@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignupActivity extends AppCompatActivity {
 
     Button signup;
@@ -93,11 +96,20 @@ public class SignupActivity extends AppCompatActivity {
         String passwordStr = password.getText().toString();
         String confirmPasswordStr = confirmPassword.getText().toString();
         errorStr = "One or more errors need to be corrected:\n\n";
+        String emailPattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
+        Pattern emailRegex = Pattern.compile(emailPattern);
+        Matcher m = emailRegex.matcher(emailStr);
 
         if(emailStr.length() == 0 || confirmEmailStr.length() == 0 || passwordStr.length() == 0
                 || confirmPasswordStr.length() == 0)
         {
             errorStr += "- One or more fields are left blank.\n\n";
+            valid = false;
+        }
+
+        if(!m.matches())
+        {
+            errorStr += "- Email given is not of valid email format.\n\n";
             valid = false;
         }
 
