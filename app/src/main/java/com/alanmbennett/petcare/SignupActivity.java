@@ -1,15 +1,23 @@
 package com.alanmbennett.petcare;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -20,14 +28,16 @@ public class SignupActivity extends AppCompatActivity {
     EditText confirmPassword;
     String errorStr;
     TextView errorMsg;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        firebaseAuth = FirebaseAuth.getInstance();
         errorStr = "";
         errorMsg = (TextView) this.findViewById(R.id.error_textView);
-
+        Log.d("First", "onCreate: ");
         signup = (Button) this.findViewById(R.id.signup_act_button);
         signup.setEnabled(false);
 
@@ -36,8 +46,17 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                if(validInput())
-                    switchToAddPet(view);
+                if(validInput()){
+                    firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isComplete()){
+                                        switchToAddPet();
+                                    }
+                                }
+                            });
+                }
             }
         });
 
@@ -79,7 +98,7 @@ public class SignupActivity extends AppCompatActivity {
         confirmPassword.addTextChangedListener(txtWatcher);
     }
 
-    public void switchToAddPet(View view)
+    public void switchToAddPet()
     {
         Intent intent = new Intent(this, AddPetActivity.class);
         startActivity(intent);
