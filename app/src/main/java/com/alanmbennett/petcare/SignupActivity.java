@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -113,10 +115,20 @@ public class SignupActivity extends AppCompatActivity {
         String confirmPasswordStr = confirmPassword.getText().toString();
         errorStr = "One or more errors need to be corrected:\n\n";
 
+        String emailPattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
+        Pattern emailRegex = Pattern.compile(emailPattern);
+        Matcher m = emailRegex.matcher(emailStr);
+
         if(emailStr.length() == 0 || confirmEmailStr.length() == 0 || passwordStr.length() == 0
                 || confirmPasswordStr.length() == 0)
         {
             errorStr += "- One or more fields are left blank.\n\n";
+            valid = false;
+        }
+
+        if(!m.matches())
+        {
+            errorStr += "- Email given is not of valid email format.\n\n";
             valid = false;
         }
 
