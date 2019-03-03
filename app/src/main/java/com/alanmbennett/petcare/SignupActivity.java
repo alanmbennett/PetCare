@@ -68,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isComplete()){
+                                    if(task.isSuccessful()){
                                         switchToAddPet();
                                     }
                                 }
