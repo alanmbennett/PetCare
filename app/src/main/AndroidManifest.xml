@@ -13,7 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WeatherActivity"></activity>
+        <activity android:name=".WeatherActivity"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.DashboardActivity" />
+        </activity>
         <activity
             android:name=".EditReminderActivity"
             android:label="@string/title_activity_reminder__edit"
