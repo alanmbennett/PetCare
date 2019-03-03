@@ -1,7 +1,9 @@
 package com.alanmbennett.petcare;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -31,7 +33,7 @@ public class SignupActivity extends AppCompatActivity {
     String errorStr;
     TextView errorMsg;
     FirebaseAuth firebaseAuth;
-
+    final Context context = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +55,15 @@ public class SignupActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isComplete()){
+                                    if(task.isSuccessful()){
                                         switchToAddPet();
+                                    } else {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                        builder.setTitle("Error!");
+
+                                        builder.setMessage("Invalid Login Credentials!").setCancelable(true);
+
+                                        builder.show();
                                     }
                                 }
                             });
