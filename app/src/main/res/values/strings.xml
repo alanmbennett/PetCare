@@ -42,6 +42,9 @@
     <string name="user_email">user email here</string>
     <string name="user_pet_label">Your Pets</string>
     <string name="button_edit_user_text">Edit</string>
+    <string name="create_reminder_button">Create Reminder</string>
+    <string name="create_reminder_label">Create Reminder</string>
+    <string name="reminder_text_label">Notes</string>
 
 
 </resources>
