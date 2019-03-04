@@ -59,6 +59,7 @@
     <string name="gallery_button">Gallery</string>
     <string name="edit_user_label">Edit User</string>
     <string name="user_name">Name:</string>
+    <string name="edit_pet_label">Edit Pet</string>
 
 
 </resources>
