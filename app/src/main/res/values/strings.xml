@@ -60,6 +60,9 @@
     <string name="edit_user_label">Edit User</string>
     <string name="user_name">Name:</string>
     <string name="edit_pet_label">Edit Pet</string>
+    <string name="reminder_date_label">Date:</string>
+    <string name="reminder_type_label">Type:</string>
+    <string name="reminder_note_label">Notes</string>
 
 
 </resources>
