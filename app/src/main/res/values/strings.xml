@@ -30,5 +30,11 @@
     <!-- Strings related to user profile -->
     <string name="user_prof_image">User Profile Image</string>
 
+    <!-- Strings related to user map search -->
+    <string name="title_activity_map_search">Map Search</string>
+    <string name="search_msg">Search for nearby stores and services for your pet!</string>
+
+
+
 
 </resources>
