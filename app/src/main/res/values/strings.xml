@@ -33,8 +33,14 @@
     <!-- Strings related to user map search -->
     <string name="title_activity_map_search">Map Search</string>
     <string name="search_msg">Search for nearby stores and services for your pet!</string>
-
-
+    <string name="title_activity_add_reminder">AddReminderActivity</string>
+    <string name="userName">User Name</string>
+    <string name="user_email_text">Email:</string>
+    <string name="username_label_text">Username:</string>
+    <string name="user_profile_pic_desc">User Profile Picture</string>
+    <string name="username">user name here</string>
+    <string name="user_email">user email here</string>
+    <string name="user_pet_label">Your Pets</string>
 
 
 </resources>

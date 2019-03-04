@@ -9,4 +9,5 @@
     <color name="white">#FFFFFF</color>
     <color name="navigationColor">@color/colorPrimary</color>
     <color name="errorColor">#FF0000</color>
+    <color name="darkLabelText">#2E2E2E</color>
 </resources>

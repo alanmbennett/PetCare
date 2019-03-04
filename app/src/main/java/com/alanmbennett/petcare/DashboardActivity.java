@@ -28,7 +28,7 @@ public class DashboardActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_reminder:
                     mTextMessage.setText(R.string.title_dashboard);
-                    startActivity(new Intent(DashboardActivity.this, ReminderActivity.class));
+                    startActivity(new Intent(DashboardActivity.this, AddReminderActivity.class));
                     return true;
                 case R.id.navigation_map:
                     mTextMessage.setText(R.string.title_notifications);
