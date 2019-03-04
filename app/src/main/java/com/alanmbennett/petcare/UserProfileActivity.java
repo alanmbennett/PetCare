@@ -11,9 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Button;
 
 public class UserProfileActivity extends AppCompatActivity {
-
+    Button editUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,13 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        editUser = (Button) this.findViewById(R.id.btEditUser);
+        editUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserProfileActivity.this, EditUserActivity.class));
+            }
+        });
     }
 
 }

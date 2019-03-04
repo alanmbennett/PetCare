@@ -146,4 +146,26 @@
         app:layout_constraintVertical_bias="0.533"
         tools:text="@string/username" />
 
+    <Button
+        android:id="@+id/btEditUser"
+        android:layout_width="66dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/button_edit_user_text"
+        android:text="@string/button_edit_user_text"
+        android:textColor="@color/darkLabelText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="@string/button_edit_user_text" />
+
 </android.support.constraint.ConstraintLayout>

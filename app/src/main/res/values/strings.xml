@@ -41,6 +41,7 @@
     <string name="username">user name here</string>
     <string name="user_email">user email here</string>
     <string name="user_pet_label">Your Pets</string>
+    <string name="button_edit_user_text">Edit</string>
 
 
 </resources>
