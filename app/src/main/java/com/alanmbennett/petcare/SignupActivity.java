@@ -1,5 +1,6 @@
 package com.alanmbennett.petcare;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -34,6 +35,7 @@ public class SignupActivity extends AppCompatActivity {
     String errorStr;
     TextView errorMsg;
     FirebaseAuth firebaseAuth;
+    final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
