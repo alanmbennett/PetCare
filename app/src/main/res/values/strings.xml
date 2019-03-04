@@ -45,6 +45,8 @@
     <string name="create_reminder_button">Create Reminder</string>
     <string name="create_reminder_label">Create Reminder</string>
     <string name="reminder_text_label">Notes</string>
+    <string name="pet_name_label">Pet Name</string>
+    <string name="edit_pet_button">Edit</string>
 
 
 </resources>
