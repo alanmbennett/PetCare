@@ -1,5 +1,6 @@
 package com.alanmbennett.petcare;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -17,14 +18,25 @@ public class DashboardActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_pet:
                     mTextMessage.setText(R.string.title_home);
+                    startActivity(new Intent(DashboardActivity.this, PetProfileActivity.class));
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_weather:
                     mTextMessage.setText(R.string.title_notifications);
+                    startActivity(new Intent(DashboardActivity.this, WeatherActivity.class));
+                    return true;
+                case R.id.navigation_reminder:
+                    mTextMessage.setText(R.string.title_dashboard);
+                    startActivity(new Intent(DashboardActivity.this, ReminderActivity.class));
+                    return true;
+                case R.id.navigation_map:
+                    mTextMessage.setText(R.string.title_notifications);
+                    startActivity(new Intent(DashboardActivity.this, MapSearchActivity.class));
+                    return true;
+                case R.id.navigation_user:
+                    mTextMessage.setText(R.string.title_notifications);
+                    startActivity(new Intent(DashboardActivity.this, UserProfileActivity.class));
                     return true;
             }
             return false;
