@@ -52,6 +52,11 @@
     <string name="pet_reminders_label">Reminders</string>
     <string name="walk_button">Start Walk</string>
     <string name="title_activity_walk_pet">WalkPetActivity</string>
+    <string name="reminder_label">Reminder</string>
+    <string name="edit_button_text">Edit</string>
+    <string name="reminder_button_example">Reminder</string>
+    <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="gallery_button">Gallery</string>
 
 
 </resources>

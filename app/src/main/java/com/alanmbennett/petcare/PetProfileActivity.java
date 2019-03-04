@@ -12,6 +12,9 @@ import android.widget.Button;
 public class PetProfileActivity extends AppCompatActivity {
     Button editPet;
     Button walkPet;
+    Button reminder;
+    Button gallery;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,24 @@ public class PetProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(PetProfileActivity.this, WalkPetActivity.class));
             }
         });
-        
+
+        reminder = (Button) this.findViewById(R.id.btReminder);
+        reminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PetProfileActivity.this, ReminderActivity.class));
+            }
+        });
+
+        gallery = (Button) this.findViewById(R.id.btGallery);
+        gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PetProfileActivity.this, GalleryActivity.class));
+            }
+        });
+
+
     }
 
 }

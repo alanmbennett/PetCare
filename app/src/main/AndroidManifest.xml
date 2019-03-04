@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alanmbennett.petcare">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -21,7 +18,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".GalleryActivity"
+            android:label="@string/title_activity_gallery"
+            android:parentActivityName=".PetProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.PetProfileActivity" />
+        </activity>
+        <activity
+            android:name=".WalkPetActivity"
+            android:label="@string/title_activity_walk_pet"
+            android:parentActivityName=".DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.DashboardActivity" />
+        </activity>
+        <activity
+            android:name=".AddReminderActivity"
+            android:label="@string/title_activity_add_reminder"
+            android:parentActivityName=".DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.DashboardActivity" />
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -60,7 +83,11 @@
         <activity
             android:name=".ReminderActivity"
             android:label="@string/title_activity_reminder"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.PetProfileActivity" />
+        </activity>
         <activity
             android:name=".EditPetActivity"
             android:label="@string/title_activity_edit__pet"
@@ -89,17 +116,24 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DashboardActivity"
-            android:label="@string/title_activity_dashboard" />
-        <activity android:name=".AddPetActivity" android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="@string/title_activity_dashboard">
+        </activity>
+        <activity
+            android:name=".AddPetActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SignupActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.alanmbennett.petcare.SplashActivity" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.SplashActivity" />
         </activity>
-        <activity android:name=".LoginActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".SplashActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
