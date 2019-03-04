@@ -3,6 +3,7 @@ package com.alanmbennett.petcare;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -67,6 +68,13 @@ public class SignupActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
                                         switchToAddPet();
+                                    } else {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                        builder.setTitle("Error!");
+
+                                        builder.setMessage("Invalid Login Credentials!").setCancelable(true);
+
+                                        builder.show();
                                     }
                                 }
                             });
