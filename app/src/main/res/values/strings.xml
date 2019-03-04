@@ -57,6 +57,8 @@
     <string name="reminder_button_example">Reminder</string>
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="gallery_button">Gallery</string>
+    <string name="edit_user_label">Edit User</string>
+    <string name="user_name">Name:</string>
 
 
 </resources>
