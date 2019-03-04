@@ -90,18 +90,16 @@
         <activity
             android:name=".DashboardActivity"
             android:label="@string/title_activity_dashboard" />
-        <activity
-            android:name=".AddPetActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddPetActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".SignupActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.alanmbennett.petcare.SplashActivity" />
+        </activity>
+        <activity android:name=".LoginActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".SplashActivity" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
