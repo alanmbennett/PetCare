@@ -11,6 +11,7 @@ import android.widget.Button;
 
 public class PetProfileActivity extends AppCompatActivity {
     Button editPet;
+    Button walkPet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +26,19 @@ public class PetProfileActivity extends AppCompatActivity {
             }
         });
 
-
         editPet = (Button) this.findViewById(R.id.btEditPet);
         editPet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PetProfileActivity.this, EditPetActivity.class));
+            }
+        });
+
+        walkPet = (Button) this.findViewById(R.id.btWalkPet);
+        walkPet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PetProfileActivity.this, WalkPetActivity.class));
             }
         });
         

@@ -47,6 +47,11 @@
     <string name="reminder_text_label">Notes</string>
     <string name="pet_name_label">Pet Name</string>
     <string name="edit_pet_button">Edit</string>
+    <string name="pet_age_label">Age:</string>
+    <string name="pet_weight_label">Weight:</string>
+    <string name="pet_reminders_label">Reminders</string>
+    <string name="walk_button">Start Walk</string>
+    <string name="title_activity_walk_pet">WalkPetActivity</string>
 
 
 </resources>
