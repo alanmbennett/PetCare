@@ -5,12 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    //List of pets that should be populated from database?
+    List<Pet> listPet;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,6 +58,16 @@ public class DashboardActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        //initializing pet list
+        listPet = new ArrayList<>();
+        //With database think we can loop through and add each pet to the list
+        listPet.add(new Pet("123", "Dog", "3", "50", R.drawable.mleh));
+
+        //intializing recyclerview and adapter
+        RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id);
+        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this, listPet);
+        myrv.setLayoutManager(new GridLayoutManager(this, 2));
+        myrv.setAdapter(myAdapter);
     }
 
 }

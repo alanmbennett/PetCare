@@ -8,12 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class PetProfileActivity extends AppCompatActivity {
     Button editPet;
     Button walkPet;
     Button reminder;
     Button gallery;
+    private TextView tvtitle, tvweight, tvage;
+    private ImageView img;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,23 @@ public class PetProfileActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        tvtitle = (TextView) findViewById(R.id.txttitle);
+        tvweight = (TextView) findViewById(R.id.txtweight);
+        tvage = (TextView) findViewById(R.id.txtage);
+        img = (ImageView) findViewById(R.id.item_thumbnail);
+        // Grab data
+        Intent intent = getIntent();
+        String Title = intent.getExtras().getString("Title");
+        String Age = intent.getExtras().getString("Age");
+        String Weight = intent.getExtras().getString("Weight");
+        int image = intent.getExtras().getInt("Thumbnail");
+
+        // Set values
+        tvtitle.setText(Title);
+        tvage.setText(Age);
+        tvweight.setText(Weight);
+        img.setImageResource(image);
 
         editPet = (Button) this.findViewById(R.id.btEditPet);
         editPet.setOnClickListener(new View.OnClickListener() {
