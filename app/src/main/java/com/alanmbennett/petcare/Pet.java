@@ -5,7 +5,15 @@ public class Pet {
     private String name;
     private String age;
     private String weight;
-    private int Thumbnail;
+    private int thumbnail;
+
+    public Pet(String petId, String name, String age, String weight, int thumbnail) {
+        this.petId = petId;
+        this.name = name;
+        this.age = age;
+        this.weight = weight;
+        this.thumbnail = thumbnail;
+    }
 
     public void setPetId(String petId) {
         this.petId = petId;
@@ -24,7 +32,7 @@ public class Pet {
     }
 
     public void setThumbnail(int thumbnail) {
-        Thumbnail = thumbnail;
+        this.thumbnail = thumbnail;
     }
 
     public String getPetId() {
@@ -44,14 +52,7 @@ public class Pet {
     }
 
     public int getThumbnail() {
-        return Thumbnail;
+        return thumbnail;
     }
 
-    public Pet(String petId, String name, String age, String weight, int thumbnail) {
-        this.petId = petId;
-        this.name = name;
-        this.age = age;
-        this.weight = weight;
-        Thumbnail = thumbnail;
-    }
 }
