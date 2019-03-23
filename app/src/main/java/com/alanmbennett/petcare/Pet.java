@@ -1,6 +1,8 @@
 package com.alanmbennett.petcare;
 
-public class Pet {
+import java.io.Serializable;
+
+public class Pet implements Serializable {
     private String petId;
     private String name;
     private String birthdate;

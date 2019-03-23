@@ -20,6 +20,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".PetListActivity"
+            android:label="@string/title_activity_pet_list"
+            android:parentActivityName=".DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.DashboardActivity" />
+        </activity>
+        <activity
             android:name=".GalleryActivity"
             android:label="@string/title_activity_gallery"
             android:parentActivityName=".PetProfileActivity"
@@ -117,8 +126,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DashboardActivity"
-            android:label="@string/title_activity_dashboard">
-        </activity>
+            android:label="@string/title_activity_dashboard"></activity>
         <activity
             android:name=".AddPetActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -134,7 +142,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

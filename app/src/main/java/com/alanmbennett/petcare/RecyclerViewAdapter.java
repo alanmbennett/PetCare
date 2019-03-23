@@ -12,14 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Pet> mData;
+    private ArrayList<Pet> mData;
 
-    public RecyclerViewAdapter(Context mContext, List<Pet> mData) {
+    public RecyclerViewAdapter(Context mContext, ArrayList<Pet> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }

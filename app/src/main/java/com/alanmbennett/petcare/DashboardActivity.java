@@ -14,6 +14,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             Bundle bundle = new Bundle();
 
             bundle.putString("uid", userID);
@@ -36,8 +38,26 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
             switch (item.getItemId()) {
                 case R.id.navigation_pet:
                     mTextMessage.setText(R.string.title_home);
-                    startActivity(new Intent(DashboardActivity.this, PetProfileActivity.class));
-                    return true;
+                    if (listPet.size() > 1){
+                        Intent intent = new Intent(DashboardActivity.this, PetListActivity.class);
+                        Bundle petBundle = new Bundle();
+                        petBundle.putSerializable("arraylist", (Serializable)listPet);
+                        intent.putExtra("bundle", petBundle);
+                        startActivity(intent);
+                        return true;
+                    }
+                    else {
+                        Intent intent = new Intent(DashboardActivity.this, PetProfileActivity.class);
+
+                        //passing data to the item profile
+                        intent.putExtra("Title", listPet.get(0).getName());
+                        intent.putExtra("Age", listPet.get(0).getBirthdate());
+                        intent.putExtra("Weight", listPet.get(0).getWeight());
+                        intent.putExtra("Thumbnail", listPet.get(0).getThumbnail());
+                        mTextMessage.setText(R.string.title_home);
+                        startActivity(intent);
+                        return true;
+                    }
                 case R.id.navigation_weather:
                     mTextMessage.setText(R.string.title_notifications);
                     startActivity(new Intent(DashboardActivity.this, WeatherActivity.class));
@@ -52,6 +72,7 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
                     return true;
                 case R.id.navigation_user:
                     mTextMessage.setText(R.string.title_notifications);
+
                     Intent intent = new Intent(DashboardActivity.this, UserProfileActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -71,8 +92,7 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
         new HttpGetRequestTask(this).execute("https://kennel-server.herokuapp.com/pets/byuser/" + userID);
 
         mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
     }
 
     @Override
@@ -80,7 +100,6 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
         try {
 
             listPet = new ArrayList<>();
-
             JSONArray petJSONArr = new JSONArray(result);
 
             for(int i = 0; i < petJSONArr.length(); i++)
@@ -93,23 +112,14 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
                             petJSON.get("weight").toString(),
                             R.drawable.mleh));
             }
-
         }
         catch(Exception e)
         {
             Log.d("Error: ", e.getMessage());
-
             listPet = new ArrayList<>();
             listPet.add(new Pet("123", "Error Doge", "404", "50", R.drawable.mleh));
         }
-
-        //initializing pet lis
-        //With database think we can loop through and add each pet to the list
-
-        //intializing recyclerview and adapter
-        RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id);
-        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this, listPet);
-        myrv.setLayoutManager(new GridLayoutManager(this, 2));
-        myrv.setAdapter(myAdapter);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 }
