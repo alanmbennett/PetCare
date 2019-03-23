@@ -3,14 +3,14 @@ package com.alanmbennett.petcare;
 public class Pet {
     private String petId;
     private String name;
-    private String age;
+    private String birthdate;
     private String weight;
     private int thumbnail;
 
-    public Pet(String petId, String name, String age, String weight, int thumbnail) {
+    public Pet(String petId, String name, String birthdate, String weight, int thumbnail) {
         this.petId = petId;
         this.name = name;
-        this.age = age;
+        this.birthdate = birthdate;
         this.weight = weight;
         this.thumbnail = thumbnail;
     }
@@ -24,7 +24,7 @@ public class Pet {
     }
 
     public void setAge(String age) {
-        this.age = age;
+        this.birthdate = birthdate;
     }
 
     public void setWeight(String weight) {
@@ -43,8 +43,8 @@ public class Pet {
         return name;
     }
 
-    public String getAge() {
-        return age;
+    public String getBirthdate() {
+        return birthdate;
     }
 
     public String getWeight() {

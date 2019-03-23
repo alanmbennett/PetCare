@@ -30,24 +30,6 @@ public class UserProfileActivity extends AppCompatActivity implements AsyncTaskC
         userID = bundle.getString("uid");
 
         new HttpGetRequestTask(this).execute("https://kennel-server.herokuapp.com/users/" + userID);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // back button pressed
-                onBackPressed();
-            }
-        });
-
-        editUser = (Button) this.findViewById(R.id.btEditUser);
-        editUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, EditUserActivity.class));
-            }
-        });
     }
 
     @Override
@@ -63,6 +45,24 @@ public class UserProfileActivity extends AppCompatActivity implements AsyncTaskC
             email.setText(userJSON.get("email").toString());
             name.setText(userJSON.get("name").toString());
             title.setText(userJSON.get("name").toString());
+
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // back button pressed
+                    onBackPressed();
+                }
+            });
+
+            editUser = (Button) this.findViewById(R.id.btEditUser);
+            editUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(UserProfileActivity.this, EditUserActivity.class));
+                }
+            });
 
         }
         catch(Exception e)

@@ -68,7 +68,7 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
         Bundle bundle = getIntent().getExtras();
         userID = bundle.getString("uid");
 
-        new HttpGetRequestTask(this).execute("https://kennel-server.herokuapp.com/groups/pets/" + userID);
+        new HttpGetRequestTask(this).execute("https://kennel-server.herokuapp.com/pets/byuser/" + userID);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -78,16 +78,21 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
     @Override
     public void onPostExecute(String result) {
         try {
-            throw new Exception("cool");
 
-            //listPet = new ArrayList<>();
+            listPet = new ArrayList<>();
 
-            //JSONArray petJSONArr = new JSONArray(result);
+            JSONArray petJSONArr = new JSONArray(result);
 
-            //for(int i = 0; i < petJSONArr.length(); i++)
-            //{
-            //    JSONObject petJSON = petJSONArr.getJSONObject(i);
-            //}
+            for(int i = 0; i < petJSONArr.length(); i++)
+            {
+                JSONObject petJSON = petJSONArr.getJSONObject(i);
+                listPet.add(new Pet(
+                            petJSON.get("petid").toString(),
+                            petJSON.get("name").toString(),
+                            petJSON.get("birthdate").toString(),
+                            petJSON.get("weight").toString(),
+                            R.drawable.mleh));
+            }
 
         }
         catch(Exception e)
@@ -100,7 +105,6 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
 
         //initializing pet lis
         //With database think we can loop through and add each pet to the list
-
 
         //intializing recyclerview and adapter
         RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id);

@@ -45,7 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 //passing data to the item profile
                 intent.putExtra("Title", mData.get(i).getName());
-                intent.putExtra("Age", mData.get(i).getAge());
+                intent.putExtra("Age", mData.get(i).getBirthdate());
                 intent.putExtra("Weight", mData.get(i).getWeight());
                 intent.putExtra("Thumbnail", mData.get(i).getThumbnail());
                 //start the activity
