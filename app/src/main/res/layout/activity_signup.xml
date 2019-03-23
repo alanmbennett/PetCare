@@ -38,6 +38,13 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/name_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_name"
+            android:inputType="text" />
+
+        <EditText
             android:id="@+id/email_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

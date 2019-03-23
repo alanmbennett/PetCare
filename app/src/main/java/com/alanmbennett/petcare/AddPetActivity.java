@@ -13,10 +13,14 @@ import com.google.firebase.auth.AuthResult;
 
 public class AddPetActivity extends AppCompatActivity {
 
+    private String userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pet);
+        Bundle bundle = getIntent().getExtras();
+        userID = bundle.getString("uid");
 
         Button add  = (Button) this.findViewById(R.id.add_button);
 
@@ -33,6 +37,10 @@ public class AddPetActivity extends AppCompatActivity {
 
     void switchToDashboard(){
         Intent intent = new Intent(this, DashboardActivity.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putString("uid", userID);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }
