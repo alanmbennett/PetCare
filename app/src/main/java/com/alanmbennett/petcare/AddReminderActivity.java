@@ -18,6 +18,13 @@ public class AddReminderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_reminder);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         createReminder = (Button) this.findViewById(R.id.create_reminder_button);

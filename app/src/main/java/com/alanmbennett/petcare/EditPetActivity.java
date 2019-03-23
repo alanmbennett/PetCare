@@ -18,8 +18,14 @@ public class EditPetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit__pet);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editPet = (Button) this.findViewById(R.id.btEditPet);
         editPet.setOnClickListener(new View.OnClickListener() {

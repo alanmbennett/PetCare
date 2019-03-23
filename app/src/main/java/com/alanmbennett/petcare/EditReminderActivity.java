@@ -18,6 +18,13 @@ public class EditReminderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reminder__edit);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

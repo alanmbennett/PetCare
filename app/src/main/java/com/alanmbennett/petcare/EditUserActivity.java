@@ -17,7 +17,13 @@ public class EditUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit__user);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
 
 
         editUser = (Button) this.findViewById(R.id.btEditUser);
