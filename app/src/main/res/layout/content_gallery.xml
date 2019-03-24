@@ -30,17 +30,26 @@
           android:orientation="horizontal">
 
           <Button
+              android:id="@+id/btCamera"
               style="@style/ButtonTheme"
               android:layout_width="150dp"
               android:layout_height="45dp"
-              android:layout_margin="15dp" />
+              android:layout_margin="15dp"
+              android:text="Camera"/>
 
           <Button
+              android:id="@+id/btGallery"
               style="@style/ButtonTheme"
               android:layout_width="150dp"
               android:layout_height="45dp"
-              android:layout_margin="15dp" />
+              android:layout_margin="15dp"
+              android:text="Gallery"/>
       </LinearLayout>
+
+      <ImageView
+          android:id="@+id/ivTarget"
+          android:layout_width="300dp"
+          android:layout_height="300dp" />
 
       <android.support.v7.widget.RecyclerView
           android:id="@+id/recyclerview_id"
