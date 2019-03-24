@@ -1,6 +1,7 @@
 package com.alanmbennett.petcare;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -11,11 +12,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
+    AsyncTaskCallback callback;
 
     private String jsonStr;
 
-    public HttpPostRequestTask(String jsonStr) {
+    public HttpPostRequestTask(String jsonStr, AsyncTaskCallback callback) {
         this.jsonStr = jsonStr;
+        this.callback = callback;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
             writer.write(jsonStr.getBytes());
             writer.close();
 
-            if(conn.getResponseCode() == HttpURLConnection.HTTP_CREATED)
+            if(conn.getResponseCode() == HttpURLConnection.HTTP_OK)
             {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -52,9 +55,15 @@ public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
         }
         catch(IOException e)
         {
+            Log.d("Error: ", e.getMessage());
 
         }
 
         return "POST Failed!";
+    }
+
+    protected void onPostExecute(String result)
+    {
+        callback.onPostExecute(result);
     }
 }

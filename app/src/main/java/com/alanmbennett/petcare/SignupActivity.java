@@ -28,7 +28,7 @@ import org.json.JSONObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity implements AsyncTaskCallback{
 
     Button signup;
     EditText email;
@@ -81,7 +81,7 @@ public class SignupActivity extends AppCompatActivity {
                                             userJSON.put("name", name.getText().toString());
                                             userJSON.put("uid", userID);
 
-                                            new HttpPostRequestTask(userJSON.toString()).execute("https://kennel-server.herokuapp.com/users/");
+                                            new HttpPostRequestTask(userJSON.toString(),SignupActivity.this).execute("https://kennel-server.herokuapp.com/users/");
                                             switchToAddPet();
                                         }
                                         catch(Exception e)
@@ -199,5 +199,10 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    @Override
+    public void onPostExecute(String result) {
+        Log.d("Sign-in: ", result);
     }
 }
