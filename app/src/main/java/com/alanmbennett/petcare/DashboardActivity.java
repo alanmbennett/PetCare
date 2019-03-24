@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -16,9 +14,8 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
-public class DashboardActivity extends AppCompatActivity implements AsyncTaskCallback{
+public class DashboardActivity extends AppCompatActivity implements HttpGetCallback {
 
     private TextView mTextMessage;
     //List of pets that should be populated from database?
@@ -97,7 +94,7 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
     }
 
     @Override
-    public void onPostExecute(String result) {
+    public void onHttpGetDone(String result) {
         try {
 
             listPet = new ArrayList<>();

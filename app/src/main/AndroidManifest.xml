@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AddGroupActivity"></activity>
         <activity
             android:name=".PetListActivity"
             android:label="@string/title_activity_pet_list"
@@ -127,7 +128,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DashboardActivity"
-            android:label="@string/title_activity_dashboard"></activity>
+            android:label="@string/title_activity_dashboard" />
         <activity
             android:name=".AddPetActivity"
             android:theme="@style/AppTheme.NoActionBar" />

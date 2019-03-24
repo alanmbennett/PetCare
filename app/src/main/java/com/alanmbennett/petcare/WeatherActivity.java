@@ -7,17 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-
-public class WeatherActivity extends AppCompatActivity implements AsyncTaskCallback{
+public class WeatherActivity extends AppCompatActivity implements HttpGetCallback {
     private LocationTracker locTracker;
     private static String darkSkyKey = "33492075741daec503dbab41cd294cc6";
     private static String darkSkyAPI = "https://api.darksky.net/forecast/";
@@ -48,7 +43,7 @@ public class WeatherActivity extends AppCompatActivity implements AsyncTaskCallb
     }
 
     @Override
-    public void onPostExecute(String result) {
+    public void onHttpGetDone(String result) {
         Log.d("JSON get: ", result);
 
         try {

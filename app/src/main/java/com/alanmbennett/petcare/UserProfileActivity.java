@@ -2,14 +2,9 @@ package com.alanmbennett.petcare;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
@@ -17,7 +12,7 @@ import android.widget.Button;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class UserProfileActivity extends AppCompatActivity implements AsyncTaskCallback {
+public class UserProfileActivity extends AppCompatActivity implements HttpGetCallback {
     Button editUser;
     private String userID;
 
@@ -33,7 +28,7 @@ public class UserProfileActivity extends AppCompatActivity implements AsyncTaskC
     }
 
     @Override
-    public void onPostExecute(String result) {
+    public void onHttpGetDone(String result) {
 
         try {
             JSONArray userJSONArr = new JSONArray(result);
