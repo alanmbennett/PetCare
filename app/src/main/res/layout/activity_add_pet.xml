@@ -9,17 +9,20 @@
     android:padding="20dp">
 
     <EditText
+        android:id="@+id/name_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/prompt_pet_name" />
 
     <EditText
+        android:id="@+id/birthdate_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/prompt_birthdate"
         android:inputType="date"/>
 
     <EditText
+        android:id="@+id/weight_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/prompt_pet_weight"

@@ -54,7 +54,7 @@ public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
         }
         catch(IOException e)
         {
-            Log.d("Error: ", e.getMessage());
+            Log.d("Error from Post Task: ", e.getMessage());
 
         }
 
