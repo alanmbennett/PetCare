@@ -5,18 +5,15 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import org.json.JSONObject;
 
-public class WalkPetActivity extends AppCompatActivity implements AsyncTaskCallback{
+public class WalkPetActivity extends AppCompatActivity implements HttpGetCallback {
     private LocationTracker locTracker;
     private static String darkSkyKey = "33492075741daec503dbab41cd294cc6";
     private static String darkSkyAPI = "https://api.darksky.net/forecast/";
@@ -59,7 +56,7 @@ public class WalkPetActivity extends AppCompatActivity implements AsyncTaskCallb
     }
 
     @Override
-    public void onPostExecute(String result) {
+    public void onHttpGetDone(String result) {
         try {
             JSONObject weatherJSON = new JSONObject(result);
             JSONObject currentWeather = (JSONObject)weatherJSON.get("currently");

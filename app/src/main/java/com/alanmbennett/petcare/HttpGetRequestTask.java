@@ -10,14 +10,14 @@ import java.net.URL;
 
 public class HttpGetRequestTask extends AsyncTask<String, Void, String>
 {
-    private AsyncTaskCallback callback;
+    private HttpGetCallback callback;
 
     public HttpGetRequestTask()
     {
         callback = null;
     }
 
-    public HttpGetRequestTask(AsyncTaskCallback callback)
+    public HttpGetRequestTask(HttpGetCallback callback)
     {
         this.callback = callback;
     }
@@ -53,7 +53,7 @@ public class HttpGetRequestTask extends AsyncTask<String, Void, String>
     {
         if(callback != null)
         {
-            callback.onPostExecute(result);
+            callback.onHttpGetDone(result);
         }
     }
 

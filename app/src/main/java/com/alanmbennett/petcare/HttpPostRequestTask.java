@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -12,11 +11,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
-    AsyncTaskCallback callback;
+    HttpPostCallback callback;
 
     private String jsonStr;
 
-    public HttpPostRequestTask(String jsonStr, AsyncTaskCallback callback) {
+    public HttpPostRequestTask(String jsonStr, HttpPostCallback callback) {
         this.jsonStr = jsonStr;
         this.callback = callback;
     }
@@ -64,6 +63,6 @@ public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
 
     protected void onPostExecute(String result)
     {
-        callback.onPostExecute(result);
+        callback.onHttpPostDone(result);
     }
 }
