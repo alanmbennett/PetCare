@@ -54,6 +54,7 @@ public class DashboardActivity extends AppCompatActivity implements AsyncTaskCal
                         intent.putExtra("Age", listPet.get(0).getBirthdate());
                         intent.putExtra("Weight", listPet.get(0).getWeight());
                         intent.putExtra("Thumbnail", listPet.get(0).getThumbnail());
+                        intent.putExtra("petId", listPet.get(0).getPetId());
                         mTextMessage.setText(R.string.title_home);
                         startActivity(intent);
                         return true;

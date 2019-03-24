@@ -43,6 +43,7 @@ public class PetProfileActivity extends AppCompatActivity {
         String Title = intent.getExtras().getString("Title");
         String Age = intent.getExtras().getString("Age");
         String Weight = intent.getExtras().getString("Weight");
+        final String petId = intent.getExtras().getString("petId");
         int image = intent.getExtras().getInt("Thumbnail");
 
         // Set values
@@ -79,7 +80,9 @@ public class PetProfileActivity extends AppCompatActivity {
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PetProfileActivity.this, GalleryActivity.class));
+                Intent intent = new Intent(PetProfileActivity.this, GalleryActivity.class);
+                intent.putExtra("petId", petId);
+                startActivity(intent);
             }
         });
 
