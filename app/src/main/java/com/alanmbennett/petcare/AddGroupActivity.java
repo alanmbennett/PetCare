@@ -1,6 +1,7 @@
 package com.alanmbennett.petcare;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,9 +58,15 @@ public class AddGroupActivity extends AppCompatActivity implements HttpPostCallb
             if(postRequest.getResponseCode() == 403)
             {
                 Log.d("Error: ","Doesn't exist");
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this).setCancelable(true);;
+                builder.setMessage("Sorry, but group of groupID " + groupID.getText().toString() + " does not exist. " +
+                        "Please enter a valid groupID.");
+                builder.show();
             }
             else {
                 Log.d("Success: ","Does exist");
+                switchToDashboard();
             }
         }
         catch(Exception e)
