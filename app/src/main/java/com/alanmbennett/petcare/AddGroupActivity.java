@@ -10,19 +10,21 @@ import android.widget.EditText;
 
 import org.json.JSONObject;
 
+import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
+
 public class AddGroupActivity extends AppCompatActivity implements HttpPostCallback {
 
     private String userID;
     private EditText groupID;
+    private HttpPostRequestTask postRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_group);
 
-        Bundle bundle = new Bundle();
-
-        bundle.putString("uid", userID);
+        Bundle bundle = getIntent().getExtras();
+        userID = bundle.getString("uid");
 
         groupID = this.findViewById(R.id.groupID_editText);
         Button joinGroup = this.findViewById(R.id.join_button);
@@ -33,9 +35,10 @@ public class AddGroupActivity extends AppCompatActivity implements HttpPostCallb
                 try {
                     JSONObject groupJSON = new JSONObject();
                     groupJSON.put("uid", userID);
-                    groupJSON.put("groupid", groupID);
+                    groupJSON.put("groupid", Integer.parseInt(groupID.getText().toString()));
 
-                    new HttpPostRequestTask(groupJSON.toString(),AddGroupActivity.this).execute("https://kennel-server.herokuapp.com/users/");
+                    postRequest = new HttpPostRequestTask(groupJSON.toString(),AddGroupActivity.this);
+                    postRequest.execute("https://kennel-server.herokuapp.com/groups/adduser");
                 }
                 catch(Exception e)
                 {
@@ -48,7 +51,16 @@ public class AddGroupActivity extends AppCompatActivity implements HttpPostCallb
     @Override
     public void onHttpPostDone(String result) {
         try {
-            // TODO
+
+            Log.d("Response code", "" + postRequest.getResponseCode());
+
+            if(postRequest.getResponseCode() == 403)
+            {
+                Log.d("Error: ","Doesn't exist");
+            }
+            else {
+                Log.d("Success: ","Does exist");
+            }
         }
         catch(Exception e)
         {

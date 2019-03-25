@@ -14,6 +14,7 @@ public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
     HttpPostCallback callback;
 
     private String jsonStr;
+    private int responseCode;
 
     public HttpPostRequestTask(String jsonStr, HttpPostCallback callback) {
         this.jsonStr = jsonStr;
@@ -35,7 +36,9 @@ public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
             writer.write(jsonStr.getBytes());
             writer.close();
 
-            if(conn.getResponseCode() == HttpURLConnection.HTTP_OK)
+            responseCode = conn.getResponseCode();
+
+            if(responseCode == HttpURLConnection.HTTP_OK)
             {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -64,5 +67,9 @@ public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result)
     {
         callback.onHttpPostDone(result);
+    }
+
+    public int getResponseCode() {
+        return responseCode;
     }
 }
