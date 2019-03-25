@@ -31,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Objects;
 
 public class GalleryActivity extends AppCompatActivity {
@@ -38,6 +39,7 @@ public class GalleryActivity extends AppCompatActivity {
     private Button cameraBtn, galleryBtn, uploadBtn;
     private ImageView targetImage;
     private String imagePath;
+    private Uri imageUri;
 
     private static final int CAMERA_REQUEST_CODE = 1;
     private static final int GALLERY_REQUEST_CODE = 2;
@@ -111,15 +113,9 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            StorageReference filepath = storage.getReference().child(petid).child(uri.getLastPathSegment());
-            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("Success: ", "File uploaded");
-                }
-            });
-
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            targetImage.setImageBitmap(imageBitmap);
         }
         if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK) {
             Uri uri = data.getData();
