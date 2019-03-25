@@ -1,18 +1,20 @@
 package com.alanmbennett.petcare;
 
+
 import java.io.Serializable;
 
 public class Pet implements Serializable {
     private String petId;
     private String name;
-    private String birthdate;
     private String weight;
     private int thumbnail;
+    private String birthdate;
 
     public Pet(String petId, String name, String birthdate, String weight, int thumbnail) {
         this.petId = petId;
         this.name = name;
         this.birthdate = birthdate;
+
         this.weight = weight;
         this.thumbnail = thumbnail;
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,7 +21,7 @@ public class AddPetActivity extends AppCompatActivity  implements HttpPostCallba
     private String userID;
     private String petID;
     private EditText name;
-    private EditText birthdate;
+    private DatePicker birthdate;
     private EditText weight;
 
     @Override
@@ -32,7 +33,7 @@ public class AddPetActivity extends AppCompatActivity  implements HttpPostCallba
 
         Button add  = (Button) this.findViewById(R.id.add_button);
         name = (EditText) this.findViewById(R.id.name_editText);
-        birthdate = (EditText) this.findViewById(R.id.birthdate_editText);
+        birthdate = (DatePicker) this.findViewById(R.id.birthdate_picker);
         weight = (EditText) this.findViewById(R.id.weight_editText);
 
         add.setOnClickListener(new View.OnClickListener()
@@ -45,7 +46,7 @@ public class AddPetActivity extends AppCompatActivity  implements HttpPostCallba
                     petJSON.put("uid", userID);
                     petJSON.put("gname", "Unnamed group");
                     petJSON.put("pname", name.getText().toString());
-                    petJSON.put("birthdate", birthdate.getText().toString());
+                    petJSON.put("birthdate", birthdate.getYear() + "-" + (birthdate.getMonth() + 1) + "-" + birthdate.getDayOfMonth());
                     petJSON.put("weight", weight.getText().toString());
 
                     new HttpPostRequestTask(petJSON.toString(),AddPetActivity.this).execute("https://kennel-server.herokuapp.com/newuser");
