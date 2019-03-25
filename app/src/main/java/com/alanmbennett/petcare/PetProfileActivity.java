@@ -44,6 +44,7 @@ public class PetProfileActivity extends AppCompatActivity {
         String Age = intent.getExtras().getString("Age");
         String Weight = intent.getExtras().getString("Weight");
         final String petId = intent.getExtras().getString("petId");
+        final String userID = intent.getExtras().getString("uid");
         int image = intent.getExtras().getInt("Thumbnail");
 
         // Set values
@@ -82,6 +83,7 @@ public class PetProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetProfileActivity.this, GalleryActivity.class);
                 intent.putExtra("petId", petId);
+                intent.putExtra("uid", userID);
                 startActivity(intent);
             }
         });

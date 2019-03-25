@@ -39,6 +39,7 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
                         Intent intent = new Intent(DashboardActivity.this, PetListActivity.class);
                         Bundle petBundle = new Bundle();
                         petBundle.putSerializable("arraylist", (Serializable)listPet);
+                        intent.putExtra("uid", userID);
                         intent.putExtra("bundle", petBundle);
                         startActivity(intent);
                         return true;
@@ -52,6 +53,7 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
                         intent.putExtra("Weight", listPet.get(0).getWeight());
                         intent.putExtra("Thumbnail", listPet.get(0).getThumbnail());
                         intent.putExtra("petId", listPet.get(0).getPetId());
+                        intent.putExtra("uid", userID);
                         mTextMessage.setText(R.string.title_home);
                         startActivity(intent);
                         return true;

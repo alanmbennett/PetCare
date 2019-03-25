@@ -2,6 +2,7 @@ package com.alanmbennett.petcare;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,14 +25,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class GalleryActivity extends AppCompatActivity {
@@ -46,6 +51,8 @@ public class GalleryActivity extends AppCompatActivity {
 
     private FirebaseStorage storage;
     private String petid;
+    private String uid;
+    private ProgressDialog progress;
 
     //private StorageReference storage;
 
@@ -67,6 +74,8 @@ public class GalleryActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         petid = intent.getExtras().getString("petId");
+        uid = intent.getExtras().getString("uid");
+        progress = new ProgressDialog(this);
 
         Log.d("Petid: ", petid);
 
@@ -116,6 +125,23 @@ public class GalleryActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             targetImage.setImageBitmap(imageBitmap);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] bitmapData = baos.toByteArray();
+
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy MM dd HH mm ss");
+            StorageReference storageReference = storage.getReference().child(petid).child(uid + " " + dtf.format(now));
+
+            progress.setMessage("Uploading Image...");
+            progress.show();
+            storageReference.putBytes(bitmapData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    progress.dismiss();
+                }
+            });
+            Log.d("Log ", "Finished Upload");
         }
         if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK) {
             Uri uri = data.getData();
@@ -123,8 +149,28 @@ public class GalleryActivity extends AppCompatActivity {
             Log.d("image path: ", imagePath);
             Bitmap bitmap;
             try {
+
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
                 targetImage.setImageBitmap(bitmap);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] bitmapData = baos.toByteArray();
+
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy MM dd HH mm ss");
+                StorageReference storageReference = storage.getReference().child(petid).child(uid + " " + dtf.format(now));
+
+
+                progress.setMessage("Uploading Image...");
+                progress.show();
+                storageReference.putBytes(bitmapData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progress.dismiss();
+                    }
+                });
+                Log.d("Log ", "Finished Upload");
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
