@@ -68,8 +68,8 @@
     <string name="title_activity_pet_list">PetListActivity</string>
 
     <!-- Strings related to adding a group -->
-    <string name="prompt_group_name">Name of Group</string>
-    <string name="button_add_group">Create Group</string>
+    <string name="prompt_group_name">Group Invite Code</string>
+    <string name="button_add_group">Join Group</string>
 
 
 </resources>

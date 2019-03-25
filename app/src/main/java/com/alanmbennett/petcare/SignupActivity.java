@@ -1,6 +1,7 @@
 package com.alanmbennett.petcare;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -73,19 +74,48 @@ public class SignupActivity extends AppCompatActivity implements HttpPostCallbac
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
                                         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                        try {
-                                            JSONObject userJSON = new JSONObject();
-                                            userJSON.put("email", email.getText().toString());
-                                            userJSON.put("name", name.getText().toString());
-                                            userJSON.put("uid", userID);
 
-                                            new HttpPostRequestTask(userJSON.toString(),SignupActivity.this).execute("https://kennel-server.herokuapp.com/users/");
-                                            switchToAddPet();
-                                        }
-                                        catch(Exception e)
-                                        {
-                                            Log.d("Error: ", e.getMessage());
-                                        }
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
+                                        builder.setMessage("Would you like to add a pet or join a group?");
+
+                                        builder.setPositiveButton("Add a Pet", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                try {
+                                                    JSONObject userJSON = new JSONObject();
+                                                    userJSON.put("email", email.getText().toString());
+                                                    userJSON.put("name", name.getText().toString());
+                                                    userJSON.put("uid", userID);
+
+                                                    new HttpPostRequestTask(userJSON.toString(),SignupActivity.this).execute("https://kennel-server.herokuapp.com/users/");
+                                                    switchToAddPet();
+                                                }
+                                                catch(Exception e)
+                                                {
+                                                    Log.d("Error: ", e.getMessage());
+                                                }
+                                            }
+                                        });
+
+                                        builder.setNegativeButton("Join a Group", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id)
+                                            {
+                                                try {
+                                                    JSONObject userJSON = new JSONObject();
+                                                    userJSON.put("email", email.getText().toString());
+                                                    userJSON.put("name", name.getText().toString());
+                                                    userJSON.put("uid", userID);
+
+                                                    new HttpPostRequestTask(userJSON.toString(),SignupActivity.this).execute("https://kennel-server.herokuapp.com/users/");
+                                                    switchToAddGroup();
+                                                }
+                                                catch(Exception e)
+                                                {
+                                                    Log.d("Error: ", e.getMessage());
+                                                }
+                                            }
+                                        });
+
+                                        builder.show();
 
                                     } else {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -144,6 +174,15 @@ public class SignupActivity extends AppCompatActivity implements HttpPostCallbac
     public void switchToAddPet()
     {
         Intent intent = new Intent(this, AddPetActivity.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putString("uid", userID);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public void switchToAddGroup() {
+        Intent intent = new Intent(this, AddGroupActivity.class);
         Bundle bundle = new Bundle();
 
         bundle.putString("uid", userID);
