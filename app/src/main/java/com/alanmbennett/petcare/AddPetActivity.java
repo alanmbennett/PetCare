@@ -66,7 +66,6 @@ public class AddPetActivity extends AppCompatActivity  implements HttpPostCallba
         Bundle bundle = new Bundle();
 
         bundle.putString("uid", userID);
-        //bundle.putString("add_pet_id", petID);
         intent.putExtras(bundle);
         startActivity(intent);
     }
