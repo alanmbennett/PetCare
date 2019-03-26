@@ -11,6 +11,8 @@ import java.net.URL;
 public class HttpGetRequestTask extends AsyncTask<String, Void, String>
 {
     private HttpGetCallback callback;
+    private String header;
+    private String headerVal;
 
     public HttpGetRequestTask()
     {
@@ -22,6 +24,12 @@ public class HttpGetRequestTask extends AsyncTask<String, Void, String>
         this.callback = callback;
     }
 
+    public HttpGetRequestTask(HttpGetCallback callback, String header, String headerVal) {
+        this.callback = callback;
+        this.header = header;
+        this.headerVal = headerVal;
+    }
+
     protected String doInBackground(String... str) {
 
         try {
@@ -30,6 +38,9 @@ public class HttpGetRequestTask extends AsyncTask<String, Void, String>
 
             conn.setRequestMethod("GET");
             conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+            if(header != null && headerVal != null){
+                conn.setRequestProperty(header, headerVal);
+            }
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 

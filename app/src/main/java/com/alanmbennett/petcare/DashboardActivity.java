@@ -72,7 +72,7 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
                     return true;
                 case R.id.navigation_map:
                     mTextMessage.setText(R.string.title_notifications);
-                    startActivity(new Intent(DashboardActivity.this, MapSearchActivity.class));
+                    startActivity(new Intent(DashboardActivity.this, locationActivity.class));
                     return true;
                 case R.id.navigation_user:
                     mTextMessage.setText(R.string.title_notifications);
