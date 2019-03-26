@@ -38,9 +38,11 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class GalleryActivity extends AppCompatActivity implements HttpPostCallback, HttpGetCallback {
@@ -131,10 +133,13 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        StorageReference storageReference = storage.getReference().child(petid).child(uid + "" + dtf.format(now));
-        final String storagePath = petid + "/" + uid + "" + dtf.format(now);
+        Date today = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmss");
+        String dateToStr = format.format(today);
+//        LocalDateTime now = LocalDateTime.now();
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        StorageReference storageReference = storage.getReference().child(petid).child(uid + "" + dateToStr);
+        final String storagePath = petid + "/" + uid + "" + dateToStr;
 
         if(requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
