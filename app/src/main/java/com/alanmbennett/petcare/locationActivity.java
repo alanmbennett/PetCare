@@ -100,9 +100,11 @@ public class locationActivity extends AppCompatActivity implements HttpGetCallba
                 String state = locationInfo.getString("state");
                 String zip = locationInfo.getString("zip_code");
                 String country = locationInfo.getString("country");
+                String image_url = jsonObject.getString("image_url");
 
+                Log.d("Url", image_url);
                 address += city + ", " + state + " " + zip + " " + country;
-                Business temp = new Business(name, address);
+                Business temp = new Business(name, address, image_url);
                 data.add(temp);
             }
 
