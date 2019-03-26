@@ -12,12 +12,6 @@
         android:title="" />
 
     <item
-        android:id="@+id/navigation_reminder"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="" />
-
-
-    <item
         android:id="@+id/navigation_map"
         android:icon="@drawable/ic_map"
         android:title=""/>
