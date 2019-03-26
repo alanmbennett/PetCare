@@ -21,6 +21,7 @@ public class TemperatureActivity extends AppCompatActivity implements HttpGetCal
     private LocationTracker locTracker;
     private static String darkSkyKey = "33492075741daec503dbab41cd294cc6";
     private static String darkSkyAPI = "https://api.darksky.net/forecast/";
+    private TextView petText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,9 @@ public class TemperatureActivity extends AppCompatActivity implements HttpGetCal
 
     @Override
     public void onHttpGetDone(String result) {
-        Log.d("JSON get: ", result);
+//        Log.d("JSON get: ", result);
+        double temp;
+        petText = findViewById(R.id.PetText);
 
         try {
             JSONObject weatherJSON = new JSONObject(result);
@@ -69,12 +72,26 @@ public class TemperatureActivity extends AppCompatActivity implements HttpGetCal
             TextView degrees = (TextView)this.findViewById(R.id.degrees);
             TextView weather = (TextView)this.findViewById(R.id.weather);
             degrees.setText(currentWeather.get("temperature").toString());
+
+            temp = Double.parseDouble(currentWeather.get("temperature").toString());
+
+
             weather.setText(currentWeather.get("summary").toString());
+
+
+
+            if(temp > 93){
+                weather.setText("It's too hot for your pooch, make sure they're hydrated!");
+            } else if(temp < 20){
+                weather.setText("Brrr....Too Cold for good old doggo, keep them warm!");
+            } else {
+                petText.setText("Weather's okay enough for a walk!");
+            }
 
         }
         catch(Exception e)
         {
-
+            Log.d("Exception", e.getMessage());
         }
     }
 

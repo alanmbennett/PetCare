@@ -94,14 +94,14 @@ public class locationActivity extends AppCompatActivity implements HttpGetCallba
             for (int i = 0; i < businesses.length(); i++){
                 JSONObject jsonObject = businesses.getJSONObject(i);
                 String name = jsonObject.getString("name");
-                String address = jsonObject.getString("address1") + " " + jsonObject.getString("address2") + " " + jsonObject.getString("address3") + " ";
-                String city = jsonObject.getString("city");
-                String state = jsonObject.getString("state");
-                String zip = jsonObject.getString("zip_code");
-                String country = jsonObject.getString("country");
+                JSONObject locationInfo = jsonObject.getJSONObject("location");
+                String address = locationInfo.getString("address1") + " " + locationInfo.getString("address2") + " " + locationInfo.getString("address3") + " ";
+                String city = locationInfo.getString("city");
+                String state = locationInfo.getString("state");
+                String zip = locationInfo.getString("zip_code");
+                String country = locationInfo.getString("country");
 
                 address += city + ", " + state + " " + zip + " " + country;
-
                 Business temp = new Business(name, address);
                 data.add(temp);
             }
