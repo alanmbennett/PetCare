@@ -58,7 +58,7 @@ public class AddReminderActivity extends AppCompatActivity implements HttpPostCa
         });
 
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        Bundle bundle = intent.getBundleExtra("bundle");
         ArrayList<Pet> listPet = (ArrayList<Pet>) bundle.getSerializable("arraylist");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

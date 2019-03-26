@@ -71,8 +71,7 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
                     Intent rIntent = new Intent(DashboardActivity.this, AddReminderActivity.class);
                     Bundle reminderBundle = new Bundle();
                     reminderBundle.putSerializable("arraylist", (Serializable)listPet);
-
-                    rIntent.putExtra("bundle", bundle);
+                    rIntent.putExtra("bundle", reminderBundle);
                     startActivity(rIntent);
                     return true;
                 case R.id.navigation_map:
