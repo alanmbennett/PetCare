@@ -83,6 +83,7 @@ public class locationActivity extends AppCompatActivity implements HttpGetCallba
     @Override
     public void onHttpGetDone(String result){
         progress.dismiss();
+        ArrayList<Business> data = new ArrayList<Business>();
         try{
             JSONObject json = new JSONObject(result);
             JSONArray businesses = new JSONArray(json.getJSONArray("businesses").toString());
@@ -90,8 +91,17 @@ public class locationActivity extends AppCompatActivity implements HttpGetCallba
 
             for (int i = 0; i < businesses.length(); i++){
                 JSONObject jsonObject = businesses.getJSONObject(i);
-                Log.d("BName", jsonObject.getString("name"));
+                String name = jsonObject.getString("name");
+                String address = jsonObject.getString("address1") + " " + jsonObject.getString("address2") + " " + jsonObject.getString("address3") + " ";
+                String city = jsonObject.getString("city");
+                String state = jsonObject.getString("state");
+                String zip = jsonObject.getString("zip_code");
+                String country = jsonObject.getString("country");
 
+                address += city + ", " + state + " " + zip + " " + country;
+
+                Business temp = new Business(name, address);
+                data.add(temp);
             }
 
         } catch (Exception e) {
