@@ -21,13 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-<<<<<<< HEAD
             android:name=".locationActivity"
             android:label="@string/title_activity_location"
-=======
+            android:parentActivityName=".DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alanmbennett.petcare.DashboardActivity" />
+        </activity>
+        <activity
             android:name=".TemperatureActivity"
             android:label="@string/title_activity_temperature"
->>>>>>> 9cf1cb6a97a110560a742908e29386950ab887b1
             android:parentActivityName=".DashboardActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

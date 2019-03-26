@@ -28,6 +28,7 @@ public class locationActivity extends AppCompatActivity implements HttpGetCallba
     private Button searchBtn;
     private ProgressDialog progress;
     private Button vetsBtn;
+    private ArrayList<Business> data = new ArrayList<Business>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +87,6 @@ public class locationActivity extends AppCompatActivity implements HttpGetCallba
     @Override
     public void onHttpGetDone(String result){
         progress.dismiss();
-        ArrayList<Business> data = new ArrayList<Business>();
         try{
             JSONObject json = new JSONObject(result);
             JSONArray businesses = new JSONArray(json.getJSONArray("businesses").toString());
