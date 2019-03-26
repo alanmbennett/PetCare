@@ -76,7 +76,7 @@ public class SignupActivity extends AppCompatActivity implements HttpPostCallbac
                                         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
-                                        builder.setMessage("Would you like to add a pet or join a group?");
+                                        builder.setMessage("Would you like to add a pet or join a group?").setCancelable(false);
 
                                         builder.setPositiveButton("Add a Pet", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {

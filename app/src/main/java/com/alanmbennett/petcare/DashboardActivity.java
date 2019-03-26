@@ -1,9 +1,11 @@
 package com.alanmbennett.petcare;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,6 +16,8 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import static android.view.View.VISIBLE;
 
 public class DashboardActivity extends AppCompatActivity implements HttpGetCallback {
 
@@ -98,19 +102,42 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
     @Override
     public void onHttpGetDone(String result) {
         try {
-
             listPet = new ArrayList<>();
             JSONArray petJSONArr = new JSONArray(result);
 
-            for(int i = 0; i < petJSONArr.length(); i++)
-            {
-                JSONObject petJSON = petJSONArr.getJSONObject(i);
-                listPet.add(new Pet(
+            if (petJSONArr.length() <= 0) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+                builder.setMessage("It looks like you have no pets to view! Would you like to add one or join a group?").setCancelable(false);;
+
+                builder.setPositiveButton("Add a Pet", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        switchToAddPet();
+                    }
+                });
+
+                builder.setNegativeButton("Join a Group", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        switchToAddGroup();
+                    }
+                });
+
+                builder.show();
+            }
+            else {
+                for(int i = 0; i < petJSONArr.length(); i++)
+                {
+                    JSONObject petJSON = petJSONArr.getJSONObject(i);
+                    listPet.add(new Pet(
                             petJSON.get("petid").toString(),
                             petJSON.get("name").toString(),
                             petJSON.get("birthdate").toString(),
                             petJSON.get("weight").toString(),
                             R.drawable.mleh));
+                }
+
+                BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+                navigation.setVisibility(VISIBLE);
+                navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
             }
         }
         catch(Exception e)
@@ -119,7 +146,25 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
             listPet = new ArrayList<>();
             listPet.add(new Pet("123", "Error Doge", "404", "50", R.drawable.mleh));
         }
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
+    public void switchToAddPet()
+    {
+        Intent intent = new Intent(this, AddPetActivity.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putString("uid", userID);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public void switchToAddGroup() {
+        Intent intent = new Intent(this, AddGroupActivity.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putString("uid", userID);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
 }
