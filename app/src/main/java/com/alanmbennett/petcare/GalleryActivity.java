@@ -240,13 +240,6 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
                 Log.d("Path", photoPathJSON.getString("photopath"));
                 String photoPath = photoPathJSON.getString("photopath");
                 photoPaths.add(photoPath);
-//                StorageReference photoRef = storage.getReference().child(photoPath);
-//                photoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                    @Override
-//                    public void onSuccess(Uri uri) {
-//                        photoPaths.add(uri.toString());
-//                    }
-//                });
             }
         } catch (Exception e) {
             Log.d("Error" , e.getMessage());
