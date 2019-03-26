@@ -18,6 +18,7 @@ public class PetProfileActivity extends AppCompatActivity {
     Button gallery;
     private TextView tvtitle, tvweight, tvage;
     private ImageView img;
+    String petId;
 
 
     @Override
@@ -43,7 +44,7 @@ public class PetProfileActivity extends AppCompatActivity {
         String Title = intent.getExtras().getString("Title");
         String Age = intent.getExtras().getString("Age");
         String Weight = intent.getExtras().getString("Weight");
-        final String petId = intent.getExtras().getString("petId");
+        petId = intent.getExtras().getString("petId");
         final String userID = intent.getExtras().getString("uid");
         int image = intent.getExtras().getInt("Thumbnail");
 
@@ -73,7 +74,7 @@ public class PetProfileActivity extends AppCompatActivity {
         reminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PetProfileActivity.this, ReminderActivity.class));
+               switchToAddReminder();
             }
         });
 
@@ -87,8 +88,15 @@ public class PetProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    void switchToAddReminder(){
+        Intent intent = new Intent(this, AddReminderActivity.class);
+        Bundle bundle = new Bundle();
 
+        bundle.putString("petid", petId);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 }

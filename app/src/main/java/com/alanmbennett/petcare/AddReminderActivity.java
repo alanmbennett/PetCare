@@ -39,14 +39,19 @@ public class AddReminderActivity extends AppCompatActivity implements HttpPostCa
     EditText title;
     EditText notes;
     CheckBox reoccurring;
-    String date;
-    String time;
-    Spinner petSpinner;
+    String petID;
+    HttpPostRequestTask postRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reminder);
+
+        Bundle bundle = getIntent().getExtras();
+        petID = bundle.getString("petid");
+
+        Log.d("PETiD", petID);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -57,10 +62,6 @@ public class AddReminderActivity extends AppCompatActivity implements HttpPostCa
             }
         });
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra("bundle");
-        ArrayList<Pet> listPet = (ArrayList<Pet>) bundle.getSerializable("arraylist");
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         createReminder = (Button) this.findViewById(R.id.create_reminder_button);
         dateButton = (Button) this.findViewById(R.id.date_button);
@@ -68,17 +69,6 @@ public class AddReminderActivity extends AppCompatActivity implements HttpPostCa
         title = (EditText) this.findViewById(R.id.title_editText);
         notes = (EditText) this.findViewById(R.id.notes_editText);
         reoccurring = (CheckBox) this.findViewById(R.id.reoccurring_checkbox);
-
-        ArrayList<String> petArr = new ArrayList<String>();
-
-        for(int i = 0; i < listPet.size(); i++)
-        {
-            petArr.add(listPet.get(i).getName());
-        }
-
-        ArrayAdapter<String> petAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, petArr);
-        petSpinner.setAdapter(petAdapter);
-
 
         Calendar today = Calendar.getInstance();
         String date = today.get(Calendar.MONTH) + 1 + "-" + today.get(Calendar.DAY_OF_MONTH) + "-" + today.get(Calendar.YEAR);
@@ -150,27 +140,25 @@ public class AddReminderActivity extends AppCompatActivity implements HttpPostCa
 
                     if(reoccurring.isChecked())
                     {
-                        reminderJSON.put("reoccurring", "t");
+                        reminderJSON.put("reocurring", "t");
                     }
                     else {
-                        reminderJSON.put("reoccurring", "f");
+                        reminderJSON.put("reocurring", "f");
                     }
 
-                    Log.d("Date: ", (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth() +"-" + datePicker.getYear());
+                    reminderJSON.put("time", datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth()
+                            + " " + timePicker.getCurrentHour() + ":" + timePicker.getCurrentMinute() + ":00");
 
-                    //reminderJSON.put("time", );
+                    reminderJSON.put("petid", petID);
+                    Log.d("Reminder: ", reminderJSON.toString());
+
+                   postRequest = new HttpPostRequestTask(reminderJSON.toString(), AddReminderActivity.this);
+                   postRequest.execute("https://kennel-server.herokuapp.com/reminders");
                 }
                 catch(Exception e)
                 {
                     Log.d("Error: ", e.getMessage());
                 }
-
-
-
-               // new HttpPostRequestTask().execute("https://kennel-server.herokuapp.com/");
-
-
-                //startActivity(new Intent(AddReminderActivity.this, DashboardActivity.class));
             }
         });
     }
@@ -203,5 +191,11 @@ public class AddReminderActivity extends AppCompatActivity implements HttpPostCa
     @Override
     public void onHttpPostDone(String result) {
 
+        Log.d("Code: ", "" + postRequest.getResponseCode());
+        Log.d("reminder post: ", result);
+
+        Intent intent = new Intent(AddReminderActivity.this, PetProfileActivity.class);
+        intent.putExtra("petId", petID);
+        startActivity(intent);
     }
 }

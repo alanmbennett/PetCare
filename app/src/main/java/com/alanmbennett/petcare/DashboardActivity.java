@@ -66,14 +66,6 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
                     mTextMessage.setText(R.string.title_notifications);
                     startActivity(new Intent(DashboardActivity.this, WeatherActivity.class));
                     return true;
-                case R.id.navigation_reminder:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    Intent rIntent = new Intent(DashboardActivity.this, AddReminderActivity.class);
-                    Bundle reminderBundle = new Bundle();
-                    reminderBundle.putSerializable("arraylist", (Serializable)listPet);
-                    rIntent.putExtra("bundle", reminderBundle);
-                    startActivity(rIntent);
-                    return true;
                 case R.id.navigation_map:
                     mTextMessage.setText(R.string.title_notifications);
                     startActivity(new Intent(DashboardActivity.this, MapSearchActivity.class));
