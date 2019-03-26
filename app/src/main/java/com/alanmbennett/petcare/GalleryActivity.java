@@ -18,6 +18,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +55,8 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
     private ImageView targetImage;
     private String imagePath;
     private Uri imageUri;
+
+    final ArrayList<String> photoPaths = new ArrayList<String>();
 
     private static final int CAMERA_REQUEST_CODE = 1;
     private static final int GALLERY_REQUEST_CODE = 2;
@@ -244,6 +248,13 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
         } catch (Exception e) {
             Log.d("Error" , e.getMessage());
         }
+
+        //intializing recyclerview and adapter
+        RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id);
+        GalleryRecyclerViewAdapter galleryAdapter = new GalleryRecyclerViewAdapter(this, photoPaths);
+        myrv.setLayoutManager(new GridLayoutManager(this, 2));
+        myrv.setAdapter(galleryAdapter);
+
         //PhotoPaths contains all of the image paths for the current pet (stored within FireStore)
         Log.d("PhotoPathLength", "" + photoPaths.size());
     }
