@@ -1,6 +1,9 @@
 package com.alanmbennett.petcare;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -87,7 +90,6 @@ public class locationActivity extends AppCompatActivity implements HttpGetCallba
         try{
             JSONObject json = new JSONObject(result);
             JSONArray businesses = new JSONArray(json.getJSONArray("businesses").toString());
-//            JSONArray businesses = jsonArray.getJSONArray(0);
 
             for (int i = 0; i < businesses.length(); i++){
                 JSONObject jsonObject = businesses.getJSONObject(i);
@@ -107,6 +109,13 @@ public class locationActivity extends AppCompatActivity implements HttpGetCallba
         } catch (Exception e) {
             Log.d("Exception", e.getMessage());
         }
+    }
+
+
+    public void addToClipboard(String toBeAdded){
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("Address", toBeAdded);
+        clipboard.setPrimaryClip(clip);
     }
 
 }
