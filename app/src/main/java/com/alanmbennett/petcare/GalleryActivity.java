@@ -26,8 +26,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -136,10 +138,9 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
         Date today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmss");
         String dateToStr = format.format(today);
-//        LocalDateTime now = LocalDateTime.now();
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        StorageReference storageReference = storage.getReference().child(petid).child(uid + "" + dateToStr);
-        final String storagePath = petid + "/" + uid + "" + dateToStr;
+        StorageReference storageReference = storage.getReference().child(petid).child(uid + dateToStr);
+        final String storagePath = petid + "/" + uid + dateToStr;
+        final StorageReference photoRef = storage.getReference().child(storagePath);
 
         if(requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
@@ -157,18 +158,21 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progress.dismiss();
+                    photoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            try{
 
-                    try{
+                                JSONObject photoJSON = new JSONObject();
+                                photoJSON.put("petid", petid);
+                                photoJSON.put("photopath", uri.toString());
+                                new HttpPostRequestTask(photoJSON.toString(),GalleryActivity.this).execute("https://kennel-server.herokuapp.com/addphoto/");
 
-                        JSONObject photoJSON = new JSONObject();
-                        photoJSON.put("petid", petid);
-                        photoJSON.put("photopath", storagePath);
-                        new HttpPostRequestTask(photoJSON.toString(),GalleryActivity.this).execute("https://kennel-server.herokuapp.com/addphoto/");
-
-                    } catch (Exception e){
-                        Log.d("Error ", e.getMessage());
-                    }
-
+                            } catch (Exception e){
+                                Log.d("Error ", e.getMessage());
+                            }
+                        }
+                    });
 
                 }
             });
@@ -194,17 +198,21 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progress.dismiss();
+                        photoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                try{
 
-                        try{
+                                    JSONObject photoJSON = new JSONObject();
+                                    photoJSON.put("petid", petid);
+                                    photoJSON.put("photopath", uri.toString());
+                                    new HttpPostRequestTask(photoJSON.toString(),GalleryActivity.this).execute("https://kennel-server.herokuapp.com/addphoto/");
 
-                            JSONObject photoJSON = new JSONObject();
-                            photoJSON.put("petid", petid);
-                            photoJSON.put("photopath", storagePath);
-                            new HttpPostRequestTask(photoJSON.toString(),GalleryActivity.this).execute("https://kennel-server.herokuapp.com/addphoto/");
-
-                        } catch (Exception e){
-                            Log.d("Error ", e.getMessage());
-                        }
+                                } catch (Exception e){
+                                    Log.d("Error ", e.getMessage());
+                                }
+                            }
+                        });
 
                     }
                 });
@@ -223,21 +231,28 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
 
     @Override
     public void onHttpGetDone(String result){
-        ArrayList<String> photoPaths = new ArrayList<String>();
+        final ArrayList<String> photoPaths = new ArrayList<String>();
         try{
             JSONArray photoPathArray = new JSONArray(result);
             for(int i = 0; i < photoPathArray.length(); i++)
             {
                 JSONObject photoPathJSON = photoPathArray.getJSONObject(i);
                 Log.d("Path", photoPathJSON.getString("photopath"));
-                photoPaths.add(photoPathJSON.getString("photopath"));
+                String photoPath = photoPathJSON.getString("photopath");
+                photoPaths.add(photoPath);
+//                StorageReference photoRef = storage.getReference().child(photoPath);
+//                photoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        photoPaths.add(uri.toString());
+//                    }
+//                });
             }
         } catch (Exception e) {
             Log.d("Error" , e.getMessage());
         }
-
         //PhotoPaths contains all of the image paths for the current pet (stored within FireStore)
-
+        Log.d("PhotoPathLength", "" + photoPaths.size());
     }
 
     @Override
