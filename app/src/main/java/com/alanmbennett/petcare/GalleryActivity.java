@@ -93,7 +93,6 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
 
         cameraBtn = (Button) findViewById(R.id.btCamera);
         galleryBtn = (Button) findViewById(R.id.btGallery);
-        targetImage = (ImageView) findViewById(R.id.ivTarget);
 
 
         //Make Get Request
@@ -149,7 +148,6 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
         if(requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            targetImage.setImageBitmap(imageBitmap);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] bitmapData = baos.toByteArray();
@@ -171,7 +169,7 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
                                 photoJSON.put("petid", petid);
                                 photoJSON.put("photopath", uri.toString());
                                 new HttpPostRequestTask(photoJSON.toString(),GalleryActivity.this).execute("https://kennel-server.herokuapp.com/addphoto/");
-
+                                refresh();
                             } catch (Exception e){
                                 Log.d("Error ", e.getMessage());
                             }
@@ -190,7 +188,6 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
             try {
 
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                targetImage.setImageBitmap(bitmap);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] bitmapData = baos.toByteArray();
@@ -211,7 +208,7 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
                                     photoJSON.put("petid", petid);
                                     photoJSON.put("photopath", uri.toString());
                                     new HttpPostRequestTask(photoJSON.toString(),GalleryActivity.this).execute("https://kennel-server.herokuapp.com/addphoto/");
-
+                                    refresh();
                                 } catch (Exception e){
                                     Log.d("Error ", e.getMessage());
                                 }
@@ -245,16 +242,15 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
                 String photoPath = photoPathJSON.getString("photopath");
                 photoPaths.add(photoPath);
             }
+
         } catch (Exception e) {
             Log.d("Error" , e.getMessage());
         }
 
-        //intializing recyclerview and adapter
         RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id);
-        GalleryRecyclerViewAdapter galleryAdapter = new GalleryRecyclerViewAdapter(this, photoPaths);
+        GalleryRecyclerViewAdapter myAdapter = new GalleryRecyclerViewAdapter(this, photoPaths);
         myrv.setLayoutManager(new GridLayoutManager(this, 2));
-        myrv.setAdapter(galleryAdapter);
-
+        myrv.setAdapter(myAdapter);
         //PhotoPaths contains all of the image paths for the current pet (stored within FireStore)
         Log.d("PhotoPathLength", "" + photoPaths.size());
     }
@@ -281,6 +277,15 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
             // other 'case' lines to check for other
             // permissions this app might request.
         }
+    }
+
+    public void refresh() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 
 

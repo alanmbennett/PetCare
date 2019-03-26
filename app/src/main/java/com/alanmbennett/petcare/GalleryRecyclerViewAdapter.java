@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecyclerViewAdapter.MyViewHolder> {
@@ -34,18 +36,9 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GalleryRecyclerViewAdapter .MyViewHolder myViewHolder, final int i) {
-        myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, PetProfileActivity.class);
-
-                //passing data to the item profile
-                intent.putExtra("Thumbnail", mData.get(i));
-                //start the activity
-                mContext.startActivity(intent);
-            }
-        });
+    public void onBindViewHolder(@NonNull GalleryRecyclerViewAdapter.MyViewHolder myViewHolder, final int i) {
+        String imgUrl = mData.get(i);
+        Picasso.get().load(imgUrl).into(myViewHolder.img_item_thumbnail);
         //Set Click Listener for card view
 
     }
