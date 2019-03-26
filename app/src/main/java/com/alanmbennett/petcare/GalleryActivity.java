@@ -136,6 +136,8 @@ public class GalleryActivity extends AppCompatActivity implements HttpPostCallba
         Date today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmss");
         String dateToStr = format.format(today);
+//        LocalDateTime now = LocalDateTime.now();
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         StorageReference storageReference = storage.getReference().child(petid).child(uid + "" + dateToStr);
         final String storagePath = petid + "/" + uid + "" + dateToStr;
 
