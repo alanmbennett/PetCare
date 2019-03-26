@@ -3,16 +3,21 @@ package com.alanmbennett.petcare;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import org.json.JSONObject;
 
-public class WeatherActivity extends AppCompatActivity implements HttpGetCallback {
+public class TemperatureActivity extends AppCompatActivity implements HttpGetCallback {
+
     private LocationTracker locTracker;
     private static String darkSkyKey = "33492075741daec503dbab41cd294cc6";
     private static String darkSkyAPI = "https://api.darksky.net/forecast/";
@@ -21,11 +26,23 @@ public class WeatherActivity extends AppCompatActivity implements HttpGetCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locTracker = new LocationTracker(this);
+        setContentView(R.layout.activity_temperature);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         new HttpGetRequestTask(this).execute(darkSkyAPI + darkSkyKey + "/" + locTracker.getLatitude() + "," + locTracker.getLongitude());
 
-        setContentView(R.layout.activity_weather);
+
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -60,4 +77,5 @@ public class WeatherActivity extends AppCompatActivity implements HttpGetCallbac
 
         }
     }
+
 }

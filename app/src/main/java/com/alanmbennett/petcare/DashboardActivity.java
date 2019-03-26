@@ -64,7 +64,7 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
                     }
                 case R.id.navigation_weather:
                     mTextMessage.setText(R.string.title_notifications);
-                    startActivity(new Intent(DashboardActivity.this, WeatherActivity.class));
+                    startActivity(new Intent(DashboardActivity.this, TemperatureActivity.class));
                     return true;
                 case R.id.navigation_reminder:
                     mTextMessage.setText(R.string.title_dashboard);
