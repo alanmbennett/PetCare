@@ -4,25 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class PetProfileActivity extends AppCompatActivity {
-    Button editPet;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class PetProfileActivity extends AppCompatActivity implements HttpGetCallback {
     Button walkPet;
     Button reminder;
     Button gallery;
     private TextView tvtitle, tvweight, tvage;
     private ImageView img;
+    private String Title;
     String petId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet__profile);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -39,7 +43,7 @@ public class PetProfileActivity extends AppCompatActivity {
         img = (ImageView) findViewById(R.id.item_thumbnail);
         // Grab data
         Intent intent = getIntent();
-        String Title = intent.getExtras().getString("Title");
+        Title = intent.getExtras().getString("Title");
         String Age = intent.getExtras().getString("Age");
         String Weight = intent.getExtras().getString("Weight");
         petId = intent.getExtras().getString("petId");
@@ -51,14 +55,6 @@ public class PetProfileActivity extends AppCompatActivity {
         tvage.setText(Age);
         tvweight.setText(Weight);
         img.setImageResource(image);
-
-        editPet = (Button) this.findViewById(R.id.btEditPet);
-        editPet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PetProfileActivity.this, EditPetActivity.class));
-            }
-        });
 
         walkPet = (Button) this.findViewById(R.id.btWalkPet);
         walkPet.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +82,8 @@ public class PetProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        new HttpGetRequestTask(this).execute("https://kennel-server.herokuapp.com/groups/caredby/" + petId);
     }
 
     void switchToAddReminder(){
@@ -97,4 +95,18 @@ public class PetProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onHttpGetDone(String result) {
+        //tvtitle.setText(tvtitle.getText().toString() + "");
+        try {
+            JSONArray arr = new JSONArray(result);
+            JSONObject jsonObj = arr.getJSONObject(0);
+            tvtitle.setText(Title +  " (Managed by Group " + jsonObj.get("groupid").toString() + ")");
+        }
+        catch(Exception e)
+        {
+
+        }
+        Log.d("Result: ", result);
+    }
 }
