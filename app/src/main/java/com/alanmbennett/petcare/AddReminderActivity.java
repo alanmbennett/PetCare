@@ -23,6 +23,7 @@ import android.widget.TimePicker;
 
 import org.json.JSONObject;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -49,8 +50,6 @@ public class AddReminderActivity extends AppCompatActivity implements HttpPostCa
 
         Bundle bundle = getIntent().getExtras();
         petID = bundle.getString("petid");
-
-        Log.d("PETiD", petID);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -191,11 +190,15 @@ public class AddReminderActivity extends AppCompatActivity implements HttpPostCa
     @Override
     public void onHttpPostDone(String result) {
 
-        Log.d("Code: ", "" + postRequest.getResponseCode());
-        Log.d("reminder post: ", result);
+        Log.d("Request code: ", "" + postRequest.getResponseCode());
 
-        Intent intent = new Intent(AddReminderActivity.this, PetProfileActivity.class);
-        intent.putExtra("petId", petID);
-        startActivity(intent);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Success");
+
+        builder.setMessage("Reminder successfully added!").setCancelable(true);
+
+        builder.show();
+        title.setText("");
+        notes.setText("");
     }
 }
