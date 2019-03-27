@@ -38,12 +38,15 @@ public class ReminderRecyclerViewAdapter extends RecyclerView.Adapter<ReminderRe
     @Override
     public void onBindViewHolder(@NonNull ReminderRecyclerViewAdapter.MyViewHolder myViewHolder, final int i) {
 
-        Log.d("mData", mData.get(i).getTime());
+//        Log.d("mData", mData.get(i).getTime());
         myViewHolder.tv_RTime.setText(mData.get(i).getTime());
         myViewHolder.tv_RReocurring.setText(mData.get(i).getReoccuring());
         myViewHolder.tv_RPetName.setText(mData.get(i).getPetName());
         myViewHolder.tv_RDescription.setText(mData.get(i).getDescription());
         myViewHolder.tv_RName.setText(mData.get(i).getTitle());
+        if(myViewHolder.tv_RName == null){
+            Log.d("tv_RName" , "nULL");
+        }
 
     }
 
@@ -64,6 +67,7 @@ public class ReminderRecyclerViewAdapter extends RecyclerView.Adapter<ReminderRe
             tv_RTime = (TextView) itemView.findViewById(R.id.rTime);
             tv_RDescription = (TextView) itemView.findViewById(R.id.rDescription);
             tv_RReocurring = (TextView) itemView.findViewById(R.id.rRecurring);
+
             cardView = (CardView) itemView.findViewById(R.id.rCard);
         }
     }
