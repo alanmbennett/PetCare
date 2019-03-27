@@ -72,4 +72,5 @@
     <!-- Strings related to adding a group -->
     <string name="prompt_group_name">Group Invite Code</string>
     <string name="button_add_group">Join Group</string>
+    <string name="walk_button_text">Start Walk</string>
 </resources>
