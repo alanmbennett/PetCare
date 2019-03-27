@@ -52,8 +52,20 @@ public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
                 reader.close();
 
                 return response.toString();
-            }
+            } else {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
+                String line;
+                StringBuilder response = new StringBuilder();
+
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+
+                reader.close();
+
+                return response.toString();
+            }
         }
         catch(IOException e)
         {
@@ -61,7 +73,7 @@ public class HttpPostRequestTask extends AsyncTask<String, Void, String> {
 
         }
 
-        return "POST Failed!";
+        return "Post Failed!";
     }
 
     protected void onPostExecute(String result)
