@@ -13,6 +13,8 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class PetProfileActivity extends AppCompatActivity implements HttpGetCallback {
     Button walkPet;
     Button reminder;
@@ -36,7 +38,6 @@ public class PetProfileActivity extends AppCompatActivity implements HttpGetCall
                 onBackPressed();
             }
         });
-
         tvtitle = (TextView) findViewById(R.id.txttitle);
         tvweight = (TextView) findViewById(R.id.txtweight);
         tvage = (TextView) findViewById(R.id.txtage);
@@ -84,6 +85,7 @@ public class PetProfileActivity extends AppCompatActivity implements HttpGetCall
         });
 
         new HttpGetRequestTask(this).execute("https://kennel-server.herokuapp.com/groups/caredby/" + petId);
+
     }
 
     void switchToAddReminder(){
@@ -107,6 +109,7 @@ public class PetProfileActivity extends AppCompatActivity implements HttpGetCall
         {
 
         }
+
         Log.d("Result: ", result);
     }
 }
