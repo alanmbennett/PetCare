@@ -39,8 +39,7 @@ public class BusinessRecyclerViewAdapter extends RecyclerView.Adapter<BusinessRe
     public void onBindViewHolder(@NonNull BusinessRecyclerViewAdapter.MyViewHolder myViewHolder, final int i) {
         myViewHolder.tv_business_name.setText(mData.get(i).getName());
         myViewHolder.tv_business_address.setText(mData.get(i).getAddress());
-        String imgUrl = "https://www.akc.org/wp-content/themes/akc/component-library/assets/img/welcome.jpg";
-        //mData.get(i).getImage_url();
+        String imgUrl = mData.get(i).getImage_url();
         Picasso.get().load(imgUrl).into(myViewHolder.img_item_thumbnail);
         //Set Click Listener for card view
 
