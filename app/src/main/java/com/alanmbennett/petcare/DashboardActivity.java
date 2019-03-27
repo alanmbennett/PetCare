@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -155,15 +157,20 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
                     String description = reminder.getString("description");
                     String time = reminder.getString("time");
                     String reocurring = reminder.getString("reocurring");
-                    int petID = (int) reminder.get("petid");
+                    String petName = (String) reminder.get("name");
                     Log.d("Description", description);
-                    Reminder temp = new Reminder(title, description, time, reocurring, petID);
+                    Reminder temp = new Reminder(title, description, time, reocurring, petName);
                     reminderArrayList.add(temp);
                 }
                 counter++;
             } catch (Exception e){
                 Log.d("ReminderError", e.getMessage());
             }
+
+            RecyclerView myrv = (RecyclerView) findViewById(R.id.rRecycler);
+            ReminderRecyclerViewAdapter myAdapter = new ReminderRecyclerViewAdapter(this, reminderArrayList);
+            myrv.setLayoutManager(new GridLayoutManager(this, 1));
+            myrv.setAdapter(myAdapter);
         }
     }
 

@@ -5,21 +5,21 @@ public class Reminder {
     private String description;
     private String time;
     private String reoccuring;
-    private Integer petid;
+    private String petName;
 
-    public Reminder(String title, String description, String time, String reoccuring, Integer petid) {
+    public Reminder(String title, String description, String time, String reoccuring, String petName) {
         this.title = title;
         this.description = description;
         this.time = time;
         this.reoccuring = reoccuring;
-        this.petid = petid;
+        this.petName = petName;
     }
     public Reminder(){
         this.title = null;
         this.description = null;
         this.time = null;
         this.reoccuring = null;
-        this.petid = null;
+        this.petName = null;
     }
 
     public String getTitle() {
@@ -54,11 +54,11 @@ public class Reminder {
         this.reoccuring = reoccuring;
     }
 
-    public Integer getPetid() {
-        return petid;
+    public String getPetName() {
+        return this.petName;
     }
 
-    public void setPetid(Integer petid) {
-        this.petid = petid;
+    public void setPetid(String petName) {
+        this.petName = petName;
     }
 }
