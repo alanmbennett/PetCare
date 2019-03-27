@@ -59,7 +59,7 @@ public class locationActivity extends AppCompatActivity implements HttpGetCallba
 
                 //https://api.yelp.com/v3/businesses/search?term=Pet Store&location=33613
                 String apiKey = "Bearer Fw6kAxs9ZQopB96cUk7r9Fg0WnAZxIkU08pvzd8IDCAR8NKeHdSjWDEeNJYj_VO2D--GzdiGcFLIxECLWVjfgCkZUV-gg1RPL1_b5knEUyjbSN0MLrHs9_XXMWaaXHYx";
-                new HttpGetRequestTask(locationActivity.this, "Authorization", apiKey).execute("https://api.yelp.com/v3/businesses/search?term=Dog Activities&location=" + zipCode);
+                new HttpGetRequestTask(locationActivity.this, "Authorization", apiKey).execute("https://api.yelp.com/v3/businesses/search?term=Dog Activities&limit=10&location=" + zipCode);
                 progress.setTitle("Searching");
                 progress.show();
 
@@ -74,7 +74,7 @@ public class locationActivity extends AppCompatActivity implements HttpGetCallba
 
                 //https://api.yelp.com/v3/businesses/search?term=Pet Store&location=33613
                 String apiKey = "Bearer Fw6kAxs9ZQopB96cUk7r9Fg0WnAZxIkU08pvzd8IDCAR8NKeHdSjWDEeNJYj_VO2D--GzdiGcFLIxECLWVjfgCkZUV-gg1RPL1_b5knEUyjbSN0MLrHs9_XXMWaaXHYx";
-                new HttpGetRequestTask(locationActivity.this, "Authorization", apiKey).execute("https://api.yelp.com/v3/businesses/search?term=Vet&location=" + zipCode);
+                new HttpGetRequestTask(locationActivity.this, "Authorization", apiKey).execute("https://api.yelp.com/v3/businesses/search?term=Vet&limit=10&location=" + zipCode);
                 progress.setTitle("Searching");
                 progress.show();
             }
