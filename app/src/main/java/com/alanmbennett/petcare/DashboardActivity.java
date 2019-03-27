@@ -25,6 +25,8 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
     //List of pets that should be populated from database?
     ArrayList<Pet> listPet;
     private String userID;
+    private int counter;
+    private ArrayList<Reminder> reminderArrayList;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -88,6 +90,8 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
         setContentView(R.layout.activity_dashboard);
         Bundle bundle = getIntent().getExtras();
         userID = bundle.getString("uid");
+        counter = 0;
+        reminderArrayList = new ArrayList<Reminder>();
 
         new HttpGetRequestTask(this).execute("https://kennel-server.herokuapp.com/pets/byuser/" + userID);
 
@@ -97,50 +101,69 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
 
     @Override
     public void onHttpGetDone(String result) {
-        try {
-            listPet = new ArrayList<>();
-            JSONArray petJSONArr = new JSONArray(result);
+        if(counter == 0 || counter % 2 == 0){
+                try {
+                listPet = new ArrayList<>();
+                JSONArray petJSONArr = new JSONArray(result);
 
-            if (petJSONArr.length() <= 0) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
-                builder.setMessage("It looks like you have no pets to view! Would you like to add one or join a group?").setCancelable(false);;
+                if (petJSONArr.length() <= 0) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+                    builder.setMessage("It looks like you have no pets to view! Would you like to add one or join a group?").setCancelable(false);
+                    ;
 
-                builder.setPositiveButton("Add a Pet", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        switchToAddPet();
+                    builder.setPositiveButton("Add a Pet", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            switchToAddPet();
+                        }
+                    });
+
+                    builder.setNegativeButton("Join a Group", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            switchToAddGroup();
+                        }
+                    });
+
+                    builder.show();
+                } else {
+                    for (int i = 0; i < petJSONArr.length(); i++) {
+                        JSONObject petJSON = petJSONArr.getJSONObject(i);
+                        listPet.add(new Pet(
+                                petJSON.get("petid").toString(),
+                                petJSON.get("name").toString(),
+                                petJSON.get("birthdate").toString(),
+                                petJSON.get("weight").toString(),
+                                R.drawable.mleh));
                     }
-                });
 
-                builder.setNegativeButton("Join a Group", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        switchToAddGroup();
-                    }
-                });
-
-                builder.show();
-            }
-            else {
-                for(int i = 0; i < petJSONArr.length(); i++)
-                {
-                    JSONObject petJSON = petJSONArr.getJSONObject(i);
-                    listPet.add(new Pet(
-                            petJSON.get("petid").toString(),
-                            petJSON.get("name").toString(),
-                            petJSON.get("birthdate").toString(),
-                            petJSON.get("weight").toString(),
-                            R.drawable.mleh));
+                    BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+                    navigation.setVisibility(VISIBLE);
+                    navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
                 }
-
-                BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-                navigation.setVisibility(VISIBLE);
-                navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+            } catch (Exception e) {
+                Log.d("Error: ", e.getMessage());
+                listPet = new ArrayList<>();
+                listPet.add(new Pet("123", "Error Doge", "404", "50", R.drawable.mleh));
             }
-        }
-        catch(Exception e)
-        {
-            Log.d("Error: ", e.getMessage());
-            listPet = new ArrayList<>();
-            listPet.add(new Pet("123", "Error Doge", "404", "50", R.drawable.mleh));
+            counter++;
+            new HttpGetRequestTask(this).execute("http://kennel-server.herokuapp.com/reminders/" + userID);
+        } else {
+            try{
+                JSONArray remindersJSON = new JSONArray(result);
+                for (int i = 0; i < remindersJSON.length(); i++) {
+                    JSONObject reminder = remindersJSON.getJSONObject(i);
+                    String title = reminder.getString("title");
+                    String description = reminder.getString("description");
+                    String time = reminder.getString("time");
+                    String reocurring = reminder.getString("reocurring");
+                    int petID = (int) reminder.get("petid");
+                    Log.d("Description", description);
+                    Reminder temp = new Reminder(title, description, time, reocurring, petID);
+                    reminderArrayList.add(temp);
+                }
+                counter++;
+            } catch (Exception e){
+                Log.d("ReminderError", e.getMessage());
+            }
         }
     }
 

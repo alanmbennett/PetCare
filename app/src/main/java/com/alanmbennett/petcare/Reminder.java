@@ -14,6 +14,13 @@ public class Reminder {
         this.reoccuring = reoccuring;
         this.petid = petid;
     }
+    public Reminder(){
+        this.title = null;
+        this.description = null;
+        this.time = null;
+        this.reoccuring = null;
+        this.petid = null;
+    }
 
     public String getTitle() {
         return title;
