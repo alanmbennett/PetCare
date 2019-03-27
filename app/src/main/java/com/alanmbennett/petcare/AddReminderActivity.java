@@ -149,7 +149,7 @@ public class AddReminderActivity extends AppCompatActivity implements HttpPostCa
                             + " " + timePicker.getCurrentHour() + ":" + timePicker.getCurrentMinute() + ":00");
 
                     reminderJSON.put("petid", petID);
-                    Log.d("Reminder: ", reminderJSON.toString());
+                    Log.d("22: ", reminderJSON.toString());
 
                    postRequest = new HttpPostRequestTask(reminderJSON.toString(), AddReminderActivity.this);
                    postRequest.execute("https://kennel-server.herokuapp.com/reminders");
@@ -191,6 +191,7 @@ public class AddReminderActivity extends AppCompatActivity implements HttpPostCa
     public void onHttpPostDone(String result) {
 
         Log.d("Request code: ", "" + postRequest.getResponseCode());
+        Log.d("Result", result);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Success");
