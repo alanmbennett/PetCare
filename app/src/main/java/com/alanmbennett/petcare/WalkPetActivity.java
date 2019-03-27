@@ -1,7 +1,12 @@
 package com.alanmbennett.petcare;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,13 +15,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
-public class WalkPetActivity extends AppCompatActivity implements HttpGetCallback {
-    private LocationTracker locTracker;
-    private static String darkSkyKey = "33492075741daec503dbab41cd294cc6";
-    private static String darkSkyAPI = "https://api.darksky.net/forecast/";
+public class WalkPetActivity extends AppCompatActivity implements SensorEventListener {
+
+    TextView tv_steps, tv_miles;
+    private float steps = 0;
+    SensorManager sManager;
+    Sensor stepSensor;
+    int flag = 0;
+
+
+    boolean walking = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,40 +44,54 @@ public class WalkPetActivity extends AppCompatActivity implements HttpGetCallbac
             }
         });
 
-        locTracker = new LocationTracker(this);
-
-        new HttpGetRequestTask(this).execute(darkSkyAPI + darkSkyKey + "/" + locTracker.getLatitude() + "," + locTracker.getLongitude());
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tv_steps = (TextView) findViewById(R.id.steps);
+        tv_miles = (TextView) findViewById(R.id.miles);
+        sManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        stepSensor = sManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-        {
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                if (locTracker.getLocManager().isProviderEnabled(LocationManager.NETWORK_PROVIDER))
-                    locTracker.getLocManager().requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1, 0, locTracker.getLocListener());
-                else
-                    locTracker.getLocManager().requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, locTracker.getLocListener());
-            }
+    public void onSensorChanged(SensorEvent event) {
+        if (walking) {
+            tv_steps.setText(String.valueOf(event.values[0]*4));
+            float milesWalked = getDistanceRun((long)(event.values[0]));
+            tv_miles.setText(String.valueOf(milesWalked));
         }
     }
 
     @Override
-    public void onHttpGetDone(String result) {
-        try {
-            JSONObject weatherJSON = new JSONObject(result);
-            JSONObject currentWeather = (JSONObject)weatherJSON.get("currently");
-            TextView degrees = (TextView)this.findViewById(R.id.textView18);
-            degrees.setText(currentWeather.get("temperature").toString());
-        }
-        catch(Exception e)
-        {
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    public float getDistanceRun(long steps) {
+        float distance = (float)(steps*78)/(float)100000;
+        return distance;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        walking = true;
+        Sensor countSensor = sManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if(countSensor != null){
+            sManager.registerListener(this, countSensor, sManager.SENSOR_DELAY_UI);
+        } else {
+            Toast.makeText(this, "Sensor not found!", Toast.LENGTH_SHORT);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        walking = false;
+        //sManager.unregisterListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        sManager.unregisterListener(this, stepSensor);
     }
 }
