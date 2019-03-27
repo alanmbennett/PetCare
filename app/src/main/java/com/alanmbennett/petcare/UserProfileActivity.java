@@ -13,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class UserProfileActivity extends AppCompatActivity implements HttpGetCallback {
-    Button editUser;
     private String userID;
 
     @Override
@@ -51,14 +50,7 @@ public class UserProfileActivity extends AppCompatActivity implements HttpGetCal
                     onBackPressed();
                 }
             });
-
-            editUser = (Button) this.findViewById(R.id.btEditUser);
-            editUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(UserProfileActivity.this, EditUserActivity.class));
-                }
-            });
+            
 
             addPetButton.setOnClickListener(new View.OnClickListener() {
                 @Override

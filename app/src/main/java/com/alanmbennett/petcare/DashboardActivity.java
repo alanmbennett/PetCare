@@ -23,7 +23,6 @@ import static android.view.View.VISIBLE;
 
 public class DashboardActivity extends AppCompatActivity implements HttpGetCallback {
 
-    private TextView mTextMessage;
     //List of pets that should be populated from database?
     ArrayList<Pet> listPet;
     private String userID;
@@ -42,7 +41,6 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
 
             switch (item.getItemId()) {
                 case R.id.navigation_pet:
-                    mTextMessage.setText(R.string.title_home);
                     if (listPet.size() > 1){
                         Intent intent = new Intent(DashboardActivity.this, PetListActivity.class);
                         Bundle petBundle = new Bundle();
@@ -62,21 +60,16 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
                         intent.putExtra("Thumbnail", listPet.get(0).getThumbnail());
                         intent.putExtra("petId", listPet.get(0).getPetId());
                         intent.putExtra("uid", userID);
-                        mTextMessage.setText(R.string.title_home);
                         startActivity(intent);
                         return true;
                     }
                 case R.id.navigation_weather:
-                    mTextMessage.setText(R.string.title_notifications);
                     startActivity(new Intent(DashboardActivity.this, TemperatureActivity.class));
                     return true;
                 case R.id.navigation_map:
-                    mTextMessage.setText(R.string.title_notifications);
                     startActivity(new Intent(DashboardActivity.this, locationActivity.class));
                     return true;
                 case R.id.navigation_user:
-                    mTextMessage.setText(R.string.title_notifications);
-
                     Intent intent = new Intent(DashboardActivity.this, UserProfileActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -97,7 +90,6 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
 
         new HttpGetRequestTask(this).execute("https://kennel-server.herokuapp.com/pets/byuser/" + userID);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
 
     }
 
@@ -161,16 +153,17 @@ public class DashboardActivity extends AppCompatActivity implements HttpGetCallb
                     Log.d("Description", description);
                     Reminder temp = new Reminder(title, description, time, reocurring, petName);
                     reminderArrayList.add(temp);
+
                 }
+                RecyclerView myrv = (RecyclerView) findViewById(R.id.rRecycler);
+                ReminderRecyclerViewAdapter myAdapter = new ReminderRecyclerViewAdapter(this, reminderArrayList);
+                myrv.setLayoutManager(new GridLayoutManager(this, 1));
+                myrv.setAdapter(myAdapter);
                 counter++;
             } catch (Exception e){
                 Log.d("ReminderError", e.getMessage());
             }
 
-            RecyclerView myrv = (RecyclerView) findViewById(R.id.rRecycler);
-            ReminderRecyclerViewAdapter myAdapter = new ReminderRecyclerViewAdapter(this, reminderArrayList);
-            myrv.setLayoutManager(new GridLayoutManager(this, 1));
-            myrv.setAdapter(myAdapter);
         }
     }
 

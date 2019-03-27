@@ -30,7 +30,7 @@ public class ReminderRecyclerViewAdapter extends RecyclerView.Adapter<ReminderRe
     public ReminderRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view;
         LayoutInflater mInflator = LayoutInflater.from(mContext);
-        view = mInflator.inflate(R.layout.cardview_image, viewGroup, false);
+        view = mInflator.inflate(R.layout.cardview_reminder, viewGroup, false);
 
         return new ReminderRecyclerViewAdapter.MyViewHolder(view);
     }
