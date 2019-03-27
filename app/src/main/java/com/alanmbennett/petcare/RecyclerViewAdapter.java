@@ -49,7 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 intent.putExtra("Age", mData.get(i).getBirthdate());
                 intent.putExtra("Weight", mData.get(i).getWeight());
                 intent.putExtra("Thumbnail", mData.get(i).getThumbnail());
-                intent.putExtra("petId", mData.get(0).getPetId());
+                intent.putExtra("petId", mData.get(i).getPetId());
                 //start the activity
                 mContext.startActivity(intent);
             }
