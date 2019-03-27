@@ -49,8 +49,9 @@
         app:layout_constraintVertical_bias="0.049"
         tools:text="@string/userName" />
 
-    <TextView
-        android:id="@+id/tv_user_name2"
+    <Button
+        style="@style/ButtonTheme"
+        android:id="@+id/add_more_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -59,18 +60,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:contentDescription="@string/user_pet_label"
-        android:text="@string/user_pet_label"
-        android:textColor="@color/darkLabelText"
         android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_user_pic"
         app:layout_constraintVertical_bias="0.472"
-        tools:text="@string/user_pet_label" />
+        android:text="Add pet" />
 
     <TextView
         android:id="@+id/textView"

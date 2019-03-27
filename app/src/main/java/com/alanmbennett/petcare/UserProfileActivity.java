@@ -37,6 +37,7 @@ public class UserProfileActivity extends AppCompatActivity implements HttpGetCal
             TextView email = (TextView)this.findViewById(R.id.textView3);
             TextView name = (TextView)this.findViewById(R.id.textView4);
             TextView title = (TextView)this.findViewById(R.id.tv_user_name);
+            Button addPetButton = (Button)this.findViewById(R.id.add_more_button);
             email.setText(userJSON.get("email").toString());
             name.setText(userJSON.get("name").toString());
             title.setText(userJSON.get("name").toString());
@@ -59,10 +60,27 @@ public class UserProfileActivity extends AppCompatActivity implements HttpGetCal
                 }
             });
 
+            addPetButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switchToAddPet();
+                }
+            });
+
         }
         catch(Exception e)
         {
             Log.d("BS ERROR: ", e.getMessage());
         }
+    }
+
+    public void switchToAddPet()
+    {
+        Intent intent = new Intent(this, AddPetActivity.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putString("uid", userID);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
